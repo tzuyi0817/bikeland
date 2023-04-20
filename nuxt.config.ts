@@ -5,9 +5,9 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1.0',
-      title: '',
+      title: 'Bike Land',
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/logo.ico' },
+        { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
         // { rel: 'shortcut icon', href: '/pwa-192x192.png' },
         // { rel: 'apple-touch-icon', href: '/pwa-192x192.png' },
         // { rel: 'mask-icon', href: '/pwa-512x512.png' },
@@ -18,7 +18,8 @@ export default defineNuxtConfig({
         { property: 'og:image:type', content: 'image/jpg' },
         { property: 'og:image:width', content: '600' },
         { property: 'og:image:height', content: '315' },
-        { property: 'og:description', content: '' },
+        { property: 'og:title', content: 'Bike Land' },
+        { property: 'og:description', content: 'Taiwan bike lane map integration network.' },
         { property: 'theme-color', content: '#ffffff' },
       ],
     },
