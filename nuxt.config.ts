@@ -13,13 +13,13 @@ export default defineNuxtConfig({
         // { rel: 'mask-icon', href: '/pwa-512x512.png' },
       ],
       meta: [
-        { name: 'description', content: 'Taiwan bike lane map integration network.' },
+        { name: 'description', content: 'Taiwan bike lane map integration network' },
         { property: 'og:imag', content: '' },
         { property: 'og:image:type', content: 'image/jpg' },
         { property: 'og:image:width', content: '600' },
         { property: 'og:image:height', content: '315' },
         { property: 'og:title', content: 'Bike Land' },
-        { property: 'og:description', content: 'Taiwan bike lane map integration network.' },
+        { property: 'og:description', content: 'Taiwan bike lane map integration network' },
         { property: 'theme-color', content: '#ffffff' },
       ],
     },
@@ -63,6 +63,44 @@ export default defineNuxtConfig({
   //       prependPath: true,
   //       changeOrigin: true,
   //     },
+  //   },
+  // },
+  // pwa: {
+  //   registerType: 'autoUpdate',
+  //   manifest: {
+  //     name: 'Bike Land',
+  //     short_name: 'BikeLand',
+  //     description: 'Taiwan bike lane map integration network',
+  //     display: 'standalone',
+  //     icons: [
+  //       {
+  //         src: 'pwa-192x192.png',
+  //         sizes: '192x192',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //         purpose: 'any maskable',
+  //       },
+  //     ],
+  //   },
+  //   workbox: {
+  //     navigateFallback: '/',
+  //     globPatterns: ['**/*.{js,css,html,png,svg,ico,ts,vue}'],
+  //   },
+  //   client: {
+  //     installPrompt: true,
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     type: 'module',
   //   },
   // },
   // i18n: {
