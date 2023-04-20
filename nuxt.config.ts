@@ -1,8 +1,13 @@
+import eslint from 'vite-plugin-eslint';
+
 export default defineNuxtConfig({
   typescript: {
     strict: true,
     shim: false,
   },
+  css: [
+    '@/assets/styles/index.css',
+  ],
   postcss: {
     plugins: {
       'postcss-import': {},
@@ -21,5 +26,8 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxt/devtools',
   ],
+  vite: {
+    plugins: [eslint()],
+  },
 });
 
