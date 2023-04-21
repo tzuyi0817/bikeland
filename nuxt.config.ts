@@ -55,8 +55,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      tokenUrl: '',
       apiUrl: '',
+      tokenUrl: '',
       clientId: '',
       clientSecret: '',
       mapToken: '',

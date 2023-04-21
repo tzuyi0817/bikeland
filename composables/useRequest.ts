@@ -8,7 +8,7 @@ interface RequestOptions {
 function useRequest(url: string, options: UseFetchOptions<RequestOptions>) {
   return useFetch(url, {
     onRequest({ options }) {
-      const token = useCookie('');
+      const token = useCookie('bike_land_token');
       const { public: { apiUrl } } = useRuntimeConfig();
 
       options.baseURL = apiUrl;
