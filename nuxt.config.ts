@@ -54,7 +54,14 @@ export default defineNuxtConfig({
     plugins: [eslint()],
   },
   runtimeConfig: {
-    public: {},
+    public: {
+      tokenUrl: '',
+      apiUrl: '',
+      clientId: '',
+      clientSecret: '',
+      mapToken: '',
+      mapStyle: '',
+    },
   },
   // nitro: {
   //   devProxy: {
