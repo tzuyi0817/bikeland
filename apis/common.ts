@@ -6,22 +6,24 @@ export async function updateToken() {
 
   if (token.value && Date.now() < +expires) return;
   const { public: { tokenUrl, clientId, clientSecret } } = useRuntimeConfig();
-  const { data } = await useFetch('/token', {
+  const { data } = await useFetch(`${tokenUrl}/token`, {
     headers: {
-      baseURL: tokenUrl,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     method: 'post',
-    body: {
+    body: new URLSearchParams({
       grant_type: 'client_credentials',
       client_id: clientId,
       client_secret: clientSecret,
-    },
+    }),
   });
-  const { access_token, expires_in } = data.value as TDXToken;
+  const {
+    access_token: accessToken,
+    expires_in: expiresIn,
+  } = data.value as TDXToken;
   const intervals = 4 * 60 * 60;
-  const expiresIn = (expires_in - intervals) * 1000;
+  const expiresInterval = (expiresIn - intervals) * 1000;
 
-  token.value = access_token;
-  expires.value = `${Date.now() + expiresIn}`;
+  token.value = accessToken;
+  expires.value = `${Date.now() + expiresInterval}`;
 }
