@@ -30,6 +30,7 @@ export default defineNuxtConfig({
     shim: false,
   },
   css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/styles/index.css',
   ],
   postcss: {
