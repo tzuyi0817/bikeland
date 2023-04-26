@@ -2,11 +2,9 @@
 @import './page/all.css';
 
 html {
+  @apply font-sans tracking-wide;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-body {
-
 }
 h1 {
   @apply text-5xl;

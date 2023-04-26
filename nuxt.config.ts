@@ -8,6 +8,7 @@ export default defineNuxtConfig({
       title: 'Bike Land',
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Monda&family=Noto+Sans+TC:wght@400;700&display=swap' },
         // { rel: 'shortcut icon', href: '/pwa-192x192.png' },
         // { rel: 'apple-touch-icon', href: '/pwa-192x192.png' },
         // { rel: 'mask-icon', href: '/pwa-512x512.png' },
