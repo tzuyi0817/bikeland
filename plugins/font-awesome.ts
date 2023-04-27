@@ -7,6 +7,7 @@ import {
   faRoute,
   faUmbrellaBeach,
   faPhoneAlt,
+  faParking,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -16,6 +17,7 @@ library.add(
   faRoute,
   faUmbrellaBeach,
   faPhoneAlt,
+  faParking,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
