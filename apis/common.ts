@@ -2,9 +2,9 @@ import type { TDXToken } from '@/types/common';
 
 export async function updateToken() {
   const token = useCookie('bike_land_token');
-  const expires = useCookie('bike_land_expires') ?? 0;
+  const expires = useCookie('bike_land_expires');
 
-  if (token.value && Date.now() < +expires) return;
+  if (token.value && Date.now() < (expires.value ? +expires.value : 0)) return;
   const { public: { tokenUrl, clientId, clientSecret } } = useRuntimeConfig();
   const { data } = await useFetch(`${tokenUrl}/token`, {
     headers: {
