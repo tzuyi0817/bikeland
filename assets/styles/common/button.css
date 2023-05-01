@@ -1,0 +1,10 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .button_base {
+    @apply text-xs rounded-lg px-3 py-2 border-[1px];
+  }
+  .button_primary {
+    @apply button_base text-primary-400 border-primary-300;
+  }
+}

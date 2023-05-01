@@ -8,6 +8,8 @@ import {
   faUmbrellaBeach,
   faPhoneAlt,
   faParking,
+  faSortAmountDown,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -18,6 +20,8 @@ library.add(
   faUmbrellaBeach,
   faPhoneAlt,
   faParking,
+  faSortAmountDown,
+  faSearch,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
