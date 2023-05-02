@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import BikeMenu from '@/components/common/BikeMenu.vue';
-import BikeSwitch from '@/components/common/BikeSwitch.vue';
 
-const isShowMenu = ref(false);
-
-function toggleMenu() {
-  isShowMenu.value = !isShowMenu.value;
-}
+const { isShowMenu, toggleMenu } = useMenu();
 </script>
 
 <template>
@@ -22,7 +17,6 @@ function toggleMenu() {
       </client-only>
     </header>
     <bike-menu :is-show-menu="isShowMenu" />
-    <bike-switch :is-show-menu="isShowMenu" />
   </div>
 </template>
 

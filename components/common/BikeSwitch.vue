@@ -1,43 +1,36 @@
 <script setup lang="ts">
-import type { Page } from '@/types/common';
+import type { Page, MenuOptions } from '@/types/common';
 
 interface Props {
   isShowMenu: boolean;
+  options: MenuOptions;
 }
 
 const props = defineProps<Props>();
-const current = ref<Page>('bicycle');
+const emit = defineEmits(['changeSwitch']);
+const current = ref<Page>(props.options[0].value);
 
 function toggleSwitch(type: Page) {
   current.value = type;
+  emit('changeSwitch', type);
 }
 </script>
 
 <template>
   <div :class="['bikeSwitch', isShowMenu ? 'translate-y-24' : 'translate-y-0']">
     <button
+      v-for="{ value, name } in options"
+      :key="value"
       :class="{
         'bikeSwitch_button': true,
-        'bikeSwitch_button-active': current === 'bicycle',
+        'bikeSwitch_button-active': current === value,
       }"
-      @click="toggleSwitch('bicycle')"
+      @click="toggleSwitch(value)"
     >
       <client-only>
-        <font-awesome-icon :icon="['fas', 'bicycle']" />
+        <font-awesome-icon :icon="['fas', value]" />
       </client-only>
-      <p>找單車</p>
-    </button>
-    <button
-      :class="{
-        'bikeSwitch_button': true,
-        'bikeSwitch_button-active': current === 'parking',
-      }"
-      @click="toggleSwitch('parking')"
-    >
-      <client-only>
-        <font-awesome-icon :icon="['fas', 'parking']" />
-      </client-only>
-      <p>找車位</p>
+      <p>{{ name }}</p>
     </button>
   </div>
 </template>

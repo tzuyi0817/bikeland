@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
+definePageMeta({
+  middleware: () => navigateTo('/bicycle'),
+});
 </script>
-
-<template>
-  <div>index</div>
-</template>
