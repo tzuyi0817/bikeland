@@ -1,6 +1,7 @@
 import eslint from 'vite-plugin-eslint';
 
 export default defineNuxtConfig({
+  // ssr: false,
   app: {
     head: {
       charset: 'utf-8',

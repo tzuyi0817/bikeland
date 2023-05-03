@@ -9,3 +9,8 @@ export interface TDXToken {
   expires_in: number;
   token_type: 'Bearer';
 }
+
+export interface Coordinate {
+  lat: number;
+  lng: number;
+}

@@ -23,7 +23,7 @@ function toggleInfo() {
           <client-only>
             <font-awesome-icon :icon="['fas', 'sort-amount-down']" />
           </client-only>
-          排序
+          <span>排序</span>
         </button>
       </div>
     </div>

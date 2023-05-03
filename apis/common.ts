@@ -1,7 +1,7 @@
 import type { TDXToken } from '@/types/common';
 
 export async function updateToken() {
-  const token = useCookie('bike_land_token', { sameSite: 'lax', httpOnly: true });
+  const token = useCookie('bike_land_token', { sameSite: 'lax' });
   const expires = useCookie('bike_land_expires');
 
   if (token.value && Date.now() < (expires.value ? +expires.value : 0)) return;
