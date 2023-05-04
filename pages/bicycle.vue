@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import BikeSwitch from '@/components/common/BikeSwitch.vue';
-import { fetchNearByStation } from '@/apis/bike';
+import BicycleStation from '@/components/bicycle/BicycleStation.vue';
+import BicycleParking from '@/components/bicycle/BicycleParking.vue';
 import type { Page, MenuOptions } from '@/types/common';
 
-const { data, refresh, pending } = fetchNearByStation({ lat: 25.0802696, lng: 121.5674925 });
+const currentPage = shallowRef(BicycleStation);
 const { isShowMenu } = useMenu();
 const bicycleSwitch: MenuOptions = [
   { value: 'bicycle', name: '找單車' },
@@ -11,7 +12,12 @@ const bicycleSwitch: MenuOptions = [
 ];
 
 function changeSwitch(type: Page) {
-  console.log({ type });
+  const pageMap = {
+    bicycle: BicycleStation,
+    parking: BicycleParking,
+  };
+
+  currentPage.value = pageMap[type];
 }
 </script>
 
@@ -22,6 +28,10 @@ function changeSwitch(type: Page) {
       :options="bicycleSwitch"
       @change-switch="changeSwitch"
     />
-    <!-- {{ data }} -->
+    <teleport to="#bikeInfo">
+      <transition name="page" mode="out-in">
+        <component :is="currentPage" />
+      </transition>
+    </teleport>
   </div>
 </template>

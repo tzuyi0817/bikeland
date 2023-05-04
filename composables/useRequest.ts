@@ -12,11 +12,9 @@ function useRequest(url: string, options: UseFetchOptions<RequestOptions>) {
       const { public: { apiUrl } } = useRuntimeConfig();
 
       options.baseURL = apiUrl;
-      console.log({ token: token.value });
       if (!token.value) return;
       options.headers = new Headers(options.headers);
       options.headers.set('Authorization', `Bearer ${token.value}`);
-      console.log({ options });
     },
     onResponse({ response }) {
       if (response.headers.get('content-disposition') && response.status === 200)

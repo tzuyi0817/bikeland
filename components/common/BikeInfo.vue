@@ -26,6 +26,7 @@ function toggleInfo() {
           <span>排序</span>
         </button>
       </div>
+      <div id="bikeInfo"></div>
     </div>
     <div class="bikeInfo_collapse" @click="toggleInfo">
       <img
@@ -42,7 +43,7 @@ function toggleInfo() {
 .bikeInfo {
   @apply fixed bottom-0 w-full transition-transform duration-300 h-3/4;
   &_content {
-    @apply px-6 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
+    @apply h-full px-6 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
   &_collapse {
     @apply
@@ -58,5 +59,9 @@ function toggleInfo() {
     z-10
     shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
+}
+
+#bikeInfo {
+  @apply mt-5 overflow-y-auto h-[calc(100%-54px)];
 }
 </style>
