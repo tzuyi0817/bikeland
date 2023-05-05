@@ -1,11 +1,9 @@
 import type { FetchResponse } from 'ofetch';
 import type { UseFetchOptions } from '#app';
 
-interface RequestOptions {
+type Response<T> = Array<T>;
 
-}
-
-function useRequest(url: string, options: UseFetchOptions<RequestOptions>) {
+function useRequest(url: string, options: UseFetchOptions<Response<any>>) {
   return useFetch(url, {
     onRequest({ options }) {
       const token = useCookie('bike_land_token');
