@@ -10,7 +10,7 @@ function toggleInfo() {
 </script>
 
 <template>
-  <div :class="['bikeInfo', isShowInfo ? 'translate-y-0' : 'translate-y-3/4']">
+  <div :class="['bikeInfo', isShowInfo ? 'translate-y-0' : 'translate-y-[calc(100%-210px)]']">
     <div class="bikeInfo_content">
       <div class="flex gap-3 items-center">
         <search-bar
@@ -43,7 +43,7 @@ function toggleInfo() {
 .bikeInfo {
   @apply fixed bottom-0 w-full transition-transform duration-300 h-3/4;
   &_content {
-    @apply h-full px-6 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
+    @apply h-full px-3 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
   &_collapse {
     @apply
@@ -62,6 +62,6 @@ function toggleInfo() {
 }
 
 #bikeInfo {
-  @apply mt-5 overflow-y-auto h-[calc(100%-54px)];
+  @apply mt-5 px-3 overflow-y-auto h-[calc(100%-54px)];
 }
 </style>

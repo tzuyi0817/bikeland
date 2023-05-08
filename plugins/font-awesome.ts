@@ -10,6 +10,7 @@ import {
   faParking,
   faSortAmountDown,
   faSearch,
+  faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -22,6 +23,7 @@ library.add(
   faParking,
   faSortAmountDown,
   faSearch,
+  faMapMarkerAlt,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

@@ -19,5 +19,12 @@ h4 {
   @apply text-2xl;
 }
 h5 {
-  @apply text-xl;
+  @apply text-xl font-bold;
 }
+h6 {
+  @apply text-lg font-bold;
+}
+h7 {
+  @apply text-base font-bold;
+}
+
