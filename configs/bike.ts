@@ -4,13 +4,13 @@ export enum BikeServiceTypeEnum {
   T_BIKE,
   P_BIKE,
   K_BIKE,
-};
+}
 
 export enum BikeServiceStatusEnum {
   CEASE,
   NORMAL,
   SUSPENSION,
-};
+}
 
 export const BIKE_SERVICE_TYPE = {
   [BikeServiceTypeEnum.YOU_BIKE_1]: 'YouBike1.0',
