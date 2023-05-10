@@ -1,0 +1,13 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  #bikeInfo {
+    @apply h-full;
+    .info_header {
+      @apply px-3 flex gap-3 items-center mb-5;
+    }
+    .info_content {
+      @apply px-3 overflow-y-auto h-[calc(100%-54px)];
+    }
+  }
+}

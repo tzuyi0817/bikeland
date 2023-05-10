@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import SearchBar from '@/components/common/SearchBar.vue';
-
 const isShowInfo = ref(false);
-const search = ref('');
 
 function toggleInfo() {
   isShowInfo.value = !isShowInfo.value;
@@ -12,20 +9,6 @@ function toggleInfo() {
 <template>
   <div :class="['bikeInfo', isShowInfo ? 'translate-y-0' : 'translate-y-[calc(100%-210px)]']">
     <div class="bikeInfo_content">
-      <div class="flex gap-3 items-center">
-        <search-bar
-          v-model="search"
-          class="flex-1"
-          type="text"
-          placeholder="搜尋站點或鄰近地點"
-        />
-        <button class="button_primary flex gap-1 items-center">
-          <client-only>
-            <font-awesome-icon :icon="['fas', 'sort-amount-down']" />
-          </client-only>
-          <span>排序</span>
-        </button>
-      </div>
       <div id="bikeInfo"></div>
     </div>
     <div class="bikeInfo_collapse" @click="toggleInfo">
@@ -59,9 +42,5 @@ function toggleInfo() {
     z-10
     shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
-}
-
-#bikeInfo {
-  @apply mt-5 px-3 overflow-y-auto h-[calc(100%-54px)];
 }
 </style>

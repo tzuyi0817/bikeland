@@ -12,7 +12,7 @@ defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative flex-1">
     <input
       class="searchBar"
       :type="type"

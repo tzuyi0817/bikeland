@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import BikeSwitch from '@/components/common/BikeSwitch.vue';
+import SearchBar from '@/components/common/SearchBar.vue';
+import SortButton from '@/components/common/SortButton.vue';
 import BicycleInfo from '@/components/bicycle/BicycleInfo.vue';
 import { fetchNearByStation, fetchNearByAvailability } from '@/apis/bike';
 import { calculateDistance } from '@/utils/common';
@@ -11,6 +13,7 @@ const coord = { lat: 25.0802696, lng: 121.5674925 }; // TODO
 const bikeStations = ref<Array<BikeStation>>([]);
 const availableBikes = ref<Array<AvailableBike>>([]);
 const isLoading = ref(false);
+const search = ref('');
 const bicycleSwitch: MenuOptions = [
   { value: 'bicycle', name: '找單車' },
   { value: 'parking', name: '找車位' },
@@ -55,6 +58,10 @@ function changeSwitch(type: Page) {}
       @change-switch="changeSwitch"
     />
     <teleport to="#bikeInfo">
+      <div class="info_header">
+        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />
+        <sort-button />
+      </div>
       <transition name="page" mode="out-in">
         <p v-if="isLoading">Loading..</p>
         <bicycle-info v-else :bike-info="bikeInfo" />
