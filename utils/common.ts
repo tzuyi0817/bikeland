@@ -18,3 +18,7 @@ export function calculateDistance(coord1: Coordinate, coord2: Coordinate) {
   distance = distance * 1609.344; // convert miles to m
   return Math.round(distance);
 }
+
+export function sleep(delay = 300) {
+  return new Promise(resolve => setTimeout(resolve, delay));
+}

@@ -1,8 +1,20 @@
 <script setup lang="ts">
+interface Props {
+  currentSort: string;
+  options: Array<Record<string, string>>;
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits(['update:currentSort']);
 const isShowMenu = ref(false);
 
 function toggleMenu() {
   isShowMenu.value = !isShowMenu.value;
+}
+
+function toggleSort(type: string) {
+  emit('update:currentSort', type);
+  toggleMenu();
 }
 </script>
 
@@ -15,9 +27,14 @@ function toggleMenu() {
       <span>排序</span>
     </button>
     <menu :class="[isShowMenu ? 'scale-y-100' : 'scale-y-0']">
-      <li>距離較近</li>
-      <li>可借車數</li>
-      <li>可還車數</li>
+      <li
+        v-for="{ name, value } in options"
+        :key="value"
+        :class="{ 'sortButton-active': currentSort === value }"
+        @click="toggleSort(value)"
+      >
+        {{ name }}
+      </li>
     </menu>
   </div>
 </template>
@@ -42,11 +59,26 @@ function toggleMenu() {
     origin-top
     shadow-[4px_4px_20px_rgba(118,118,118,0.3)];
     li {
-      @apply px-1 py-2 text-primary-400 whitespace-nowrap;
+      @apply
+      px-1
+      py-2
+      text-primary-400
+      whitespace-nowrap
+      text-xs
+      cursor-pointer
+      transition-colors
+      rounded
+      hover:bg-primary-100
+      hover:outline
+      hover:outline-[1px]
+    hover:outline-primary-300;
       &:nth-of-type(1), &:nth-of-type(2) {
         @apply border-b-[1px] border-grey-300;
       }
     }
+  }
+  &-active {
+    @apply bg-primary-100 outline outline-[1px] outline-primary-300;
   }
 }
 </style>

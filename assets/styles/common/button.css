@@ -2,9 +2,9 @@
 
 @layer components {
   .button_base {
-    @apply text-xs rounded-lg px-3 py-2 border-[1px];
+    @apply text-xs rounded-lg px-3 py-2 border-[1px] transition-colors;
   }
   .button_primary {
-    @apply button_base text-primary-400 border-primary-300;
+    @apply button_base text-primary-400 border-primary-300 hover:bg-primary-100;
   }
 }
