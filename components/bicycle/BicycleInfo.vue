@@ -40,7 +40,7 @@ function availableColor(available: number) {
     >
       <div class="flex justify-between items-center mb-2 gap-5">
         <div class="flex-1 flex gap-2 items-center overflow-hidden">
-          <p class="primary-500 ellipsis font-bold">{{ info.StationName.Zh_tw }}</p>
+          <p class="text-primary-500 ellipsis font-bold">{{ info.StationName.Zh_tw }}</p>
           <div :class="['bicycleInfo_status', statusColor(info)]">
             {{ formatStatus(info) }}
           </div>
