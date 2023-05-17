@@ -1,0 +1,39 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .marker {
+    @apply
+    border-[3px]
+    border-white
+    rounded-full
+    shadow-[4px_4px_20px_rgba(118,118,118,0.3)];
+  }
+  .marker_self {
+    @apply
+    marker
+    !w-5
+    !h-5
+    bg-accent-400
+    before:content-['']
+    before:absolute
+    before:w-1
+    before:h-1
+    before:rounded-full
+    before:border-accent-400
+    before:left-1
+    before:top-1
+    before:border-2
+    before:animate-[ping_1s_infinite];
+  }
+
+  @keyframes ping {
+    from {
+      opacity: 1;
+      transform: scale(0);
+    }
+    to {
+      opacity: 0;
+      transform: scale(12);
+    }
+  }
+}
