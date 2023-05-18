@@ -17,6 +17,7 @@ export async function updateToken() {
       client_secret: clientSecret,
     }),
   });
+  if (!data.value) return;
   const {
     access_token: accessToken,
     expires_in: expiresIn,

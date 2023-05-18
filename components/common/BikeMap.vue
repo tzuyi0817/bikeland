@@ -4,7 +4,7 @@ import { LMap, LTileLayer, LMarker, LIcon } from '@vue-leaflet/vue-leaflet';
 import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
-const mapZoom = ref(20);
+const { mapZoom } = useMap();
 const { position } = useGeolocation();
 
 function mapReCenter(coord: Coordinate) {
@@ -31,7 +31,7 @@ onMounted(() => {
         name="OpenStreetMap"
       />
       <l-marker :lat-lng="[position.lat, position.lng]">
-        <l-icon className="marker_self"><div></div></l-icon>
+        <l-icon class-name="marker_self"><div></div></l-icon>
       </l-marker>
     </l-map>
   </div>

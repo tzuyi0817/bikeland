@@ -5,13 +5,13 @@ import SortButton from '@/components/common/SortButton.vue';
 import BicycleInfo from '@/components/bicycle/BicycleInfo.vue';
 import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { fetchNearByStation, fetchNearByAvailability } from '@/apis/bike';
-import { calculateDistance, sleep } from '@/utils/common';
+import { sleep } from '@/utils/common';
 import type { Page, MenuOptions, Coordinate } from '@/types/common';
 import type { BikeStation, AvailableBike } from '@/types/bike';
 import type { BicycleSortType } from '@/types/sort';
 
 const { isShowMenu } = useMenu();
-const coord = { lat: 25.0802696, lng: 121.5674925 }; // TODO
+const { bikeInfo, mapCenterPos, setBikeInfo } = useMap();
 const bikeStations = ref<Array<BikeStation>>([]);
 const availableBikes = ref<Array<AvailableBike>>([]);
 const isLoading = ref(false);
@@ -27,21 +27,7 @@ const bicycleSortOptions = [
   { name: '可還車數', value: 'AvailableReturnBikes' },
 ];
 
-const bikeInfo = computed(() => {
-  return bikeStations.value.map((station) => {
-    const { StationUID, StationPosition: { PositionLat, PositionLon } } = station;
-    const availableBike = availableBikes.value.find(bike => bike.StationUID === StationUID)!;
-    const stationCoord = { lat: PositionLat, lng: PositionLon };
-
-    return {
-      ...station,
-      ...availableBike,
-      distance: calculateDistance(coord, stationCoord),
-    };
-  });
-});
-
-fetchBikeInfo(coord);
+fetchBikeInfo(mapCenterPos.value);
 
 function fetchBikeInfo(coord: Coordinate) {
   isLoading.value = true;
@@ -62,7 +48,9 @@ async function changeSort(sortKey: BicycleSortType) {
   isLoading.value = true;
   await sleep();
   bikeInfo.value.sort((a, b) => {
-    return isAsc ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey];
+    return isAsc 
+      ? a[sortKey] - b[sortKey] 
+      : (b[sortKey] ?? 0) - (a[sortKey] ?? 0);
   });
   isLoading.value = false;
 }
@@ -70,6 +58,9 @@ async function changeSort(sortKey: BicycleSortType) {
 function changeSwitch(type: Page) {}
 
 watch(currentSort, changeSort);
+watch([bikeStations, availableBikes, mapCenterPos], ([stations, available]) => {
+  setBikeInfo(stations, available);
+});
 </script>
 
 <template>

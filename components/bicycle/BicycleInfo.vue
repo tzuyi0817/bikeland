@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { bikeAvailableColor } from '@/utils/bike';
+import { isNumber } from '@/utils/checkType';
 import { BikeServiceStatusEnum, BIKE_SERVICE_STATUS } from '@/configs/bike';
 import type { BikeInfo } from '@/types/bike';
 
@@ -11,19 +12,27 @@ const props = defineProps<Props>();
 const { toggleCard } = useCard();
 
 function statusColor(info: BikeInfo) {
-  const { AvailableRentBikes, AvailableReturnBikes, ServiceStatus } = info;
-
-  if (ServiceStatus !== BikeServiceStatusEnum.NORMAL) return 'border-grey-300 text-grey-400';
-  if (AvailableRentBikes > 0 && AvailableReturnBikes > 0) return 'border-accent-300 text-accent-500';
+  const {
+    AvailableRentBikes: rentCount,
+    AvailableReturnBikes: returnCount,
+    ServiceStatus: serviceStatus,
+  } = info;
+  if (!isNumber(rentCount) || !isNumber(returnCount)) return '';
+  if (serviceStatus !== BikeServiceStatusEnum.NORMAL) return 'border-grey-300 text-grey-400';
+  if (rentCount > 0 && returnCount > 0) return 'border-accent-300 text-accent-500';
   return 'border-alert-300 text-alert-400';
 }
 
 function formatStatus(info: BikeInfo) {
-  const { AvailableRentBikes, AvailableReturnBikes, ServiceStatus } = info;
-
-  if (ServiceStatus !== BikeServiceStatusEnum.NORMAL) return BIKE_SERVICE_STATUS[ServiceStatus];
-  if (AvailableRentBikes > 0 && AvailableReturnBikes > 0) return '可借可還';
-  return AvailableRentBikes > 0 ? '只可借車' : '只可停車';
+  const {
+    AvailableRentBikes: rentCount,
+    AvailableReturnBikes: returnCount,
+    ServiceStatus: serviceStatus,
+  } = info;;
+  if (!isNumber(rentCount) || !isNumber(returnCount) || serviceStatus === void 0) return '';
+  if (serviceStatus !== BikeServiceStatusEnum.NORMAL) return BIKE_SERVICE_STATUS[serviceStatus];
+  if (rentCount > 0 && returnCount > 0) return '可借可還';
+  return rentCount > 0 ? '只可借車' : '只可停車';
 }
 </script>
 

@@ -3,7 +3,7 @@ import {
   BikeServiceStatusEnum,
 } from '@/configs/bike';
 
-export interface BikeInfo extends BikeStation, AvailableBike {
+export interface BikeInfo extends BikeStation, Partial<AvailableBike> {
   distance: number;
 }
 
