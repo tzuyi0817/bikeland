@@ -1,4 +1,4 @@
-export type Page = 'bicycle' | 'parking';
+export type Page = 'default' | 'bicycle' | 'parking';
 export type MenuOptions = Array<{
   value: Page;
   name: string;

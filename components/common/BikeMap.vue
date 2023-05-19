@@ -4,15 +4,16 @@ import { LMap, LTileLayer, LMarker, LIcon } from '@vue-leaflet/vue-leaflet';
 import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
-const { mapZoom } = useMap();
+const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
 const { position } = useGeolocation();
 
 function mapReCenter(coord: Coordinate) {
-
+  mapCenterPos.value = coord;
 }
 
+watch(position, mapReCenter);
 onMounted(() => {
-  console.log(map.value);
+  // console.log(map.value);
 });
 </script>
 
@@ -32,6 +33,12 @@ onMounted(() => {
       />
       <l-marker :lat-lng="[position.lat, position.lng]">
         <l-icon class-name="marker_self"><div></div></l-icon>
+      </l-marker>
+      <l-marker
+        v-for="{ id, stationPosition } in bikeMarkers"
+        :key="id"
+        :lat-lng="[stationPosition.PositionLat, stationPosition.PositionLon]"
+      >
       </l-marker>
     </l-map>
   </div>

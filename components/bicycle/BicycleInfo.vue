@@ -28,8 +28,8 @@ function formatStatus(info: BikeInfo) {
     AvailableRentBikes: rentCount,
     AvailableReturnBikes: returnCount,
     ServiceStatus: serviceStatus,
-  } = info;;
-  if (!isNumber(rentCount) || !isNumber(returnCount) || serviceStatus === void 0) return '';
+  } = info;
+  if (!isNumber(rentCount) || !isNumber(returnCount) || serviceStatus === undefined) return '';
   if (serviceStatus !== BikeServiceStatusEnum.NORMAL) return BIKE_SERVICE_STATUS[serviceStatus];
   if (rentCount > 0 && returnCount > 0) return '可借可還';
   return rentCount > 0 ? '只可借車' : '只可停車';

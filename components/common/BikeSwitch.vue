@@ -2,17 +2,18 @@
 import type { Page, MenuOptions } from '@/types/common';
 
 interface Props {
+  currentSwitch: Page;
   isShowMenu: boolean;
   options: MenuOptions;
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['changeSwitch']);
-const current = ref<Page>(props.options[0].value);
+const emit = defineEmits(['update:currentSwitch']);
+
+toggleSwitch(props.options[0].value);
 
 function toggleSwitch(type: Page) {
-  current.value = type;
-  emit('changeSwitch', type);
+  emit('update:currentSwitch', type);
 }
 </script>
 
@@ -21,9 +22,9 @@ function toggleSwitch(type: Page) {
     <button
       v-for="{ value, name } in options"
       :key="value"
+      class="bikeSwitch_button"
       :class="{
-        'bikeSwitch_button': true,
-        'bikeSwitch_button-active': current === value,
+        'bikeSwitch_button-active': currentSwitch === value,
       }"
       @click="toggleSwitch(value)"
     >
