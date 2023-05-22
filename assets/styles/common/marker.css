@@ -11,8 +11,8 @@
   .marker_self {
     @apply
     marker
-    !w-5
-    !h-5
+    !w-6
+    !h-6
     bg-accent-400
     before:content-['']
     before:absolute
@@ -20,10 +20,19 @@
     before:h-1
     before:rounded-full
     before:border-accent-400
-    before:left-1
-    before:top-1
+    before:left-[7px]
+    before:top-[7px]
     before:border-2
     before:animate-[ping_1s_infinite];
+  }
+  .marker_map {
+    @apply !w-fit !h-fit border-none;
+    &_hole {
+      @apply relative w-5 h-[6px] rounded-[50%] left-1/2 -translate-x-1/2 -translate-y-[2px] z-[1];
+    }
+    &_available {
+      @apply relative w-6 h-5 text-center font-bold bg-white left-1/2 -translate-x-1/2 translate-y-[29px];
+    }
   }
 
   @keyframes ping {
@@ -33,7 +42,7 @@
     }
     to {
       opacity: 0;
-      transform: scale(12);
+      transform: scale(14);
     }
   }
 }
