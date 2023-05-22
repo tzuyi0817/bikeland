@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MapMarker from '@/components/common/MapMarker.vue';
 import { bikeAvailableColor } from '@/utils/bike';
 
 const { isShowMenu } = useMenu();
@@ -30,9 +31,7 @@ const { toggleCard, isShowCard, cardInfo } = useCard();
           </div>
         </div>
         <div class="text-grey-500 flex items-center gap-[6px]">
-          <client-only>
-            <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
-          </client-only>
+          <map-marker class="text-gray-500" />
           <span class="text-xs whitespace-nowrap">{{ `距離${cardInfo.distance ?? 0}公尺` }}</span>
         </div>
       </div>

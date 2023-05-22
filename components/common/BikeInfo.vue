@@ -13,7 +13,7 @@ function toggleInfo() {
     </div>
     <div class="bikeInfo_collapse" @click="toggleInfo">
       <img
-        src="@/assets/images/triangle.svg"
+        src="@/assets/images/icon/triangle.svg"
         :class="[isShowInfo ? 'rotate-180' : 'rotate-0']"
         width="10"
         alt=""

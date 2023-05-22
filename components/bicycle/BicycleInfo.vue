@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MapMarker from '@/components/common/MapMarker.vue';
 import { bikeAvailableColor } from '@/utils/bike';
 import { isNumber } from '@/utils/checkType';
 import { BikeServiceStatusEnum, BIKE_SERVICE_STATUS } from '@/configs/bike';
@@ -52,9 +53,7 @@ function formatStatus(info: BikeInfo) {
           </div>
         </div>
         <div class="text-grey-500 flex items-center gap-1">
-          <client-only>
-            <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
-          </client-only>
+          <map-marker class="text-gray-500" />
           <span class="text-xs whitespace-nowrap">{{ `距離${info.distance}公尺` }}</span>
         </div>
       </div>

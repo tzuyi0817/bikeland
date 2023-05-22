@@ -39,6 +39,9 @@ onMounted(() => {
         :key="id"
         :lat-lng="[stationPosition.PositionLat, stationPosition.PositionLon]"
       >
+        <l-icon>
+          <img src="@/assets/images/icon/map-marker.svg" alt="">
+        </l-icon>
       </l-marker>
     </l-map>
   </div>
