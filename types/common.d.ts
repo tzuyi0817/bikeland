@@ -1,8 +1,10 @@
 export type Page = 'default' | 'bicycle' | 'parking';
-export type MenuOptions = Array<{
+export type MenuOptions = [MenuOption, MenuOption];
+
+interface MenuOption {
   value: Page;
   name: string;
-}>;
+}
 
 export interface TDXToken {
   access_token: string;

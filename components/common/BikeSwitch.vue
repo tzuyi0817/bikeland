@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { sleep } from '@/utils/common';
 import type { Page, MenuOptions } from '@/types/common';
 
 interface Props {
@@ -9,23 +10,33 @@ interface Props {
 
 const props = defineProps<Props>();
 const emit = defineEmits(['update:currentSwitch']);
+const transitionEffect = ref(false);
 
-toggleSwitch(props.options[0].value);
-
-function toggleSwitch(type: Page) {
+async function toggleSwitch(type: Page) {
+  transitionEffect.value = true;
   emit('update:currentSwitch', type);
+  await sleep();
+  transitionEffect.value = false;
 }
 </script>
 
 <template>
   <div :class="['bikeSwitch', isShowMenu ? 'translate-y-24' : 'translate-y-0']">
+    <div
+      class="bikeSwitch_effect"
+      :class="{
+        'translate-x-0': currentSwitch === options[0].value,
+        'translate-x-[100px]': currentSwitch === options[1].value,
+      }"
+    ></div>
     <button
       v-for="{ value, name } in options"
       :key="value"
       class="bikeSwitch_button"
       :class="{
-        'bikeSwitch_button-active': currentSwitch === value,
+        'bikeSwitch_button-active': !transitionEffect && currentSwitch === value,
       }"
+      :disabled="transitionEffect"
       @click="toggleSwitch(value)"
     >
       <client-only>
@@ -54,10 +65,23 @@ function toggleSwitch(type: Page) {
   transition-transform
   duration-300;
   &_button {
-    @apply px-3 py-1 gap-1 rounded-2xl text-primary-400 flex items-center;
+    @apply
+    relative
+    min-w-[96px]
+    text-primary-400
+    py-1
+    gap-1
+    rounded-2xl
+    flex
+    items-center
+    justify-center
+    disabled:text-primary-300;
     &-active {
       @apply bg-primary-400 text-white;
     }
+  }
+  &_effect {
+    @apply absolute w-24 h-8 bg-primary-400 rounded-2xl left-[6px] transition-transform duration-300;
   }
 }
 </style>

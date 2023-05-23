@@ -27,6 +27,8 @@ const bicycleSortOptions = [
   { name: '可還車數', value: 'AvailableReturnBikes' },
 ];
 
+currentSwitch.value = 'bicycle';
+
 function fetchBikeInfo(coord: Coordinate) {
   isLoading.value = true;
   Promise.all([fetchNearByStation(coord), fetchNearByAvailability(coord)])

@@ -3,7 +3,7 @@ import type { Coordinate, Page } from '@/types/common';
 import type { BikeInfo, BikeStation, AvailableBike } from '@/types/bike';
 
 function useMap() {
-  const mapZoom = useState('mapZoom', () => 18);
+  const mapZoom = useState('mapZoom', () => 16);
   const mapCenterPos = useState<Coordinate>('mapCenterPos', () => ({ lat: 25.0802696, lng: 121.5674925 }));
   const currentSwitch = useState<Page>('currentSwitch', () => 'default');
   const bikeInfo = useState<BikeInfo[]>('bikeInfo', () => []);
