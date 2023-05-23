@@ -20,7 +20,7 @@ module.exports = {
     'vue/script-setup-uses-vars': 'error',
     'array-callback-return': 0,
     indent: ['error', 2, { "SwitchCase": 1 }],
-    'max-len': ["error", { "code": 110 }],
+    'max-len': ["error", { "code": 120 }],
     semi: ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
     'space-before-function-paren': ['error', 'never'],

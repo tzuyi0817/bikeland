@@ -8,6 +8,8 @@ import type { Coordinate } from '@/types/common';
 const map = ref<typeof LMap>();
 const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
 const { position } = useGeolocation();
+const { public: { mapToken, mapStyle } } = useRuntimeConfig();
+const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
 
 function mapReCenter(coord: Coordinate) {
   mapCenterPos.value = coord;
@@ -29,7 +31,8 @@ onMounted(() => {
       :use-global-leaflet="false"
     >
       <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        :attribution="attribution"
+        :url="`https://api.mapbox.com/styles/v1/tzuyi/${mapStyle}/tiles/256/{z}/{x}/{y}@2x?access_token=${mapToken}`"
         layer-type="base"
         name="OpenStreetMap"
       />
