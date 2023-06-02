@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import 'leaflet/dist/leaflet.css';
-import { LMap, LTileLayer, LMarker, LIcon } from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer, LMarker, LIcon, LPopup } from '@vue-leaflet/vue-leaflet';
 import MapMarker from '@/components/common/MapMarker.vue';
+import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { bikeMarkerColor, bikeMarkerHoleColor } from '@/utils/bike';
 import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
 const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
+const { toggleCard } = useCard();
 const { position } = useGeolocation();
 const { public: { mapToken, mapStyle } } = useRuntimeConfig();
 const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
@@ -40,16 +41,41 @@ onMounted(() => {
         <l-icon class-name="marker_self"><div></div></l-icon>
       </l-marker>
       <l-marker
-        v-for="{ id, stationPosition, available } in bikeMarkers"
-        :key="id"
-        :lat-lng="[stationPosition.PositionLat, stationPosition.PositionLon]"
+        v-for="info in bikeMarkers"
+        :key="info.StationUID"
+        :lat-lng="[info.StationPosition.PositionLat, info.StationPosition.PositionLon]"
+        @click="toggleCard(true, info);"
       >
         <l-icon class-name="marker_map">
-          <div :class="`marker_map_available ${bikeMarkerColor(available)}`">{{ available }}</div>
-          <map-marker :class="`relative ${bikeMarkerColor(available)} z-[2]`" width="37.74" height="44" />
-          <div :class="`marker_map_hole ${bikeMarkerHoleColor(available)}`"></div>
+          <div :class="`marker_map_available ${bikeMarkerColor(info.available)}`">{{ info.available }}</div>
+          <map-marker :class="`relative ${bikeMarkerColor(info.available)} z-[2]`" width="37.74" height="44" />
+          <div :class="`marker_map_hole ${bikeMarkerHoleColor(info.available)}`"></div>
         </l-icon>
+        <l-popup>
+          <BicycleCard />
+        </l-popup>
       </l-marker>
     </l-map>
   </div>
 </template>
+
+<style lang="postcss" scoped>
+:deep(.leaflet-popup) {
+  @apply mb-0;
+}
+
+:deep(.leaflet-popup-content-wrapper) {
+  @apply bg-transparent rounded-lg p-0;
+}
+
+:deep(.leaflet-popup-content) {
+  @apply m-0 !w-fit;
+  p {
+    @apply m-0;
+  }
+}
+
+:deep(.leaflet-popup-tip-container) {
+  @apply hidden;
+}
+</style>

@@ -10,13 +10,13 @@ function useMap() {
   const bikeMarkers = computed(() => {
     const markerMap = {
       bicycle() {
-        return bikeInfo.value.map(({ StationUID, StationPosition, AvailableRentBikes }) => {
-          return { id: StationUID, stationPosition: StationPosition, available: AvailableRentBikes };
+        return bikeInfo.value.map((info) => {
+          return { ...info, available: info.AvailableRentBikes };
         });
       },
       parking() {
-        return bikeInfo.value.map(({ StationUID, StationPosition, AvailableReturnBikes }) => {
-          return { id: StationUID, stationPosition: StationPosition, available: AvailableReturnBikes };
+        return bikeInfo.value.map((info) => {
+          return { ...info, available: info.AvailableReturnBikes };
         });
       },
       default: () => [],

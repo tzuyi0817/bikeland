@@ -3,7 +3,6 @@ import BikeSwitch from '@/components/common/BikeSwitch.vue';
 import SearchBar from '@/components/common/SearchBar.vue';
 import SortButton from '@/components/common/SortButton.vue';
 import BicycleInfo from '@/components/bicycle/BicycleInfo.vue';
-import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { fetchNearByStation, fetchNearByAvailability } from '@/apis/bike';
 import { sleep } from '@/utils/common';
 import type { MenuOptions, Coordinate } from '@/types/common';
@@ -69,7 +68,6 @@ watch([bikeStations, availableBikes], ([stations, available]) => {
       :is-show-menu="isShowMenu"
       :options="bicycleSwitch"
     />
-    <bicycle-card />
     <teleport to="#bikeInfo">
       <div class="info_header">
         <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />

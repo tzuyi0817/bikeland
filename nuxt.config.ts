@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     shim: false,
   },
   css: [
+    'leaflet/dist/leaflet.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/styles/index.css',
   ],

@@ -3,49 +3,40 @@ import MapMarker from '@/components/common/MapMarker.vue';
 import { bikeAvailableColor } from '@/utils/bike';
 
 const { isShowMenu } = useMenu();
-const { toggleCard, isShowCard, cardInfo } = useCard();
+const { cardInfo } = useCard();
 </script>
 
 <template>
-  <transition name="page" mode="out-in">
-    <div
-      v-if="isShowCard"
-      :class="['bicycleCard', isShowMenu ? 'translate-y-24' : 'translate-y-0']"
-    >
-      <p class="text-primary-500 ellipsis font-bold mb-2">
-        {{ cardInfo.StationName?.Zh_tw }}
-      </p>
-      <div class="flex items-center justify-between gap-6">
-        <div class="flex gap-3">
-          <div :class="['bicycleCard_available', bikeAvailableColor(cardInfo.AvailableRentBikes)]">
-            <client-only>
-              <font-awesome-icon :icon="['fas', 'bicycle']" />
-            </client-only>
-            <p class="font-bold">{{ cardInfo.AvailableRentBikes }}</p>
-          </div>
-          <div :class="['bicycleCard_available', bikeAvailableColor(cardInfo.AvailableReturnBikes)]">
-            <client-only>
-              <font-awesome-icon :icon="['fas', 'parking']" />
-            </client-only>
-            <p class="font-bold">{{ cardInfo.AvailableReturnBikes }}</p>
-          </div>
+  <div :class="['bicycleCard', isShowMenu ? 'translate-y-24' : 'translate-y-0']">
+    <p class="text-primary-500 ellipsis font-bold !mb-2">
+      {{ cardInfo.StationName?.Zh_tw }}
+    </p>
+    <div class="flex items-center justify-between gap-6">
+      <div class="flex gap-3">
+        <div :class="['bicycleCard_available', bikeAvailableColor(cardInfo.AvailableRentBikes)]">
+          <client-only>
+            <font-awesome-icon :icon="['fas', 'bicycle']" />
+          </client-only>
+          <p class="font-bold">{{ cardInfo.AvailableRentBikes }}</p>
         </div>
-        <div class="text-grey-500 flex items-center gap-[6px]">
-          <map-marker class="text-gray-500" />
-          <span class="text-xs whitespace-nowrap">{{ `距離${cardInfo.distance ?? 0}公尺` }}</span>
+        <div :class="['bicycleCard_available', bikeAvailableColor(cardInfo.AvailableReturnBikes)]">
+          <client-only>
+            <font-awesome-icon :icon="['fas', 'parking']" />
+          </client-only>
+          <p class="font-bold">{{ cardInfo.AvailableReturnBikes }}</p>
         </div>
       </div>
+      <div class="text-grey-500 flex items-center gap-[6px]">
+        <map-marker class="text-gray-500" />
+        <span class="text-xs whitespace-nowrap font-bold">{{ `距離${cardInfo.distance ?? 0}公尺` }}</span>
+      </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <style lang="postcss" scoped>
 .bicycleCard {
   @apply
-  absolute
-  top-[100px]
-  left-1/2
-  -translate-x-1/2
   transition-all
   duration-300
   px-5
