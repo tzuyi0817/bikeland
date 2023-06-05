@@ -6,8 +6,9 @@ import { bikeMarkerColor, bikeMarkerHoleColor } from '@/utils/bike';
 import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
+const markers = ref();
 const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
-const { toggleCard } = useCard();
+const { toggleCard, setMarkers } = useCard();
 const { position } = useGeolocation();
 const { public: { mapToken, mapStyle } } = useRuntimeConfig();
 const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
@@ -16,6 +17,7 @@ function mapReCenter(coord: Coordinate) {
   mapCenterPos.value = coord;
 }
 
+watch(markers, setMarkers);
 watch(position, mapReCenter);
 onMounted(() => {
   // console.log(map.value);
@@ -42,9 +44,11 @@ onMounted(() => {
       </l-marker>
       <l-marker
         v-for="info in bikeMarkers"
+        ref="markers"
         :key="info.StationUID"
+        :name="info.StationUID"
         :lat-lng="[info.StationPosition.PositionLat, info.StationPosition.PositionLon]"
-        @click="toggleCard(true, info);"
+        @click="toggleCard(info);"
       >
         <l-icon class-name="marker_map">
           <div :class="`marker_map_available ${bikeMarkerColor(info.available)}`">{{ info.available }}</div>

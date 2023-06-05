@@ -1,18 +1,27 @@
+import { LMarker } from '@vue-leaflet/vue-leaflet';
 import type { BikeInfo } from '@/types/bike';
 
 function useCard() {
-  const isShowCard = useState('isShowCard', () => false);
   const cardInfo = useState<Partial<BikeInfo>>('cardInfo', () => ({}));
+  const mapMarkers = useState<typeof LMarker[]>('mapMarkers', () => []);
 
-  function toggleCard(isShow: boolean, info: Partial<BikeInfo> = {}) {
+  function toggleCard(info: Partial<BikeInfo> = {}, isFromMap = true) {
     cardInfo.value = info;
-    isShowCard.value = isShow;
+    if (isFromMap) return;
+    const marker = mapMarkers.value.find(marker => marker.name === info.StationUID);
+
+    marker?.leafletObject.openPopup();
+  }
+
+  function setMarkers(markers?: typeof LMarker[]) {
+    if (!markers) return;
+    mapMarkers.value = markers;
   }
 
   return {
-    isShowCard,
     cardInfo,
     toggleCard,
+    setMarkers,
   };
 }
 
