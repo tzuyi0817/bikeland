@@ -1,4 +1,4 @@
-import type { TDXToken } from '@/types/common';
+import type { TDXToken, Coordinate } from '@/types/common';
 
 export async function updateToken() {
   const token = useCookie('bike_land_token', { sameSite: 'lax' });
@@ -27,4 +27,15 @@ export async function updateToken() {
 
   token.value = accessToken;
   expires.value = `${Date.now() + expiresInterval}`;
+}
+
+export function fetchGeoDistrict({ lat, lng }: Coordinate) {
+  const params = {
+    $format: 'JSON',
+  };
+
+  return useRequest(
+    `/advanced/V3/Map/GeoLocating/District/LocationX/${lng}/LocationY/${lat}`,
+    { method: 'get', params },
+  );
 }
