@@ -1,6 +1,9 @@
 @import 'tailwindcss/components';
 
 @layer components {
+  button {
+    @apply disabled:cursor-not-allowed;
+  }
   .button_base {
     @apply text-xs rounded-lg px-3 py-2 border-[1px] transition-colors;
   }

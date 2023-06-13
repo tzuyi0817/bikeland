@@ -62,6 +62,7 @@ async function toggleSwitch(type: Page) {
   gap-1
   px-[6px]
   py-1
+  drop-shadow-md
   transition-transform
   duration-300;
   &_button {

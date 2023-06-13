@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const isShowInfo = ref(false);
-
-function toggleInfo() {
-  isShowInfo.value = !isShowInfo.value;
-}
+const { isShowInfo, toggleInfo } = useInfo();
 </script>
 
 <template>

@@ -23,6 +23,7 @@ function useGeolocation() {
 
   return {
     position,
+    updateCurrentPosition,
   };
 }
 

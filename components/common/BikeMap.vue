@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { LMap, LTileLayer, LMarker, LIcon, LPopup } from '@vue-leaflet/vue-leaflet';
 import MapMarker from '@/components/common/MapMarker.vue';
+import PositionButton from '@/components/common/PositionButton.vue';
 import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { bikeMarkerColor, bikeMarkerHoleColor } from '@/utils/bike';
 import type { Coordinate } from '@/types/common';
@@ -9,12 +10,18 @@ const map = ref<typeof LMap>();
 const markers = ref();
 const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
 const { toggleCard, setMarkers } = useCard();
-const { position } = useGeolocation();
+const { isShowInfo } = useInfo();
+const { position, updateCurrentPosition } = useGeolocation();
 const { public: { mapToken, mapStyle } } = useRuntimeConfig();
 const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
 
 function mapReCenter(coord: Coordinate) {
   mapCenterPos.value = coord;
+  mapFlyTo(coord);
+}
+
+function mapFlyTo(coord: Coordinate) {
+  map.value?.leafletObject?.flyTo([coord.lat, coord.lng]);
 }
 
 watch(markers, setMarkers);
@@ -29,9 +36,10 @@ onMounted(() => {
     <l-map
       ref="map"
       v-model:zoom="mapZoom"
-      :center="[position.lat, position.lng]"
+      :center="[mapCenterPos.lat, mapCenterPos.lng]"
       :min-zoom="2"
       :use-global-leaflet="false"
+      @ready="mapFlyTo(mapCenterPos)"
     >
       <l-tile-layer
         :attribution="attribution"
@@ -61,6 +69,7 @@ onMounted(() => {
       </l-marker>
     </l-map>
   </div>
+  <position-button :is-show-info="isShowInfo" @update-current-position="updateCurrentPosition" />
 </template>
 
 <style lang="postcss" scoped>
