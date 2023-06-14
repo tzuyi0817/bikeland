@@ -3,7 +3,7 @@ const { isShowInfo, toggleInfo } = useInfo();
 </script>
 
 <template>
-  <div :class="['bikeInfo', isShowInfo ? 'translate-y-0' : 'translate-y-[calc(100%-210px)]']">
+  <div :class="['bikeInfo', isShowInfo ? 'translate-y-0' : 'translate-y-[calc(100%-190px)]']">
     <div class="bikeInfo_content">
       <div id="bikeInfo"></div>
     </div>
@@ -20,7 +20,7 @@ const { isShowInfo, toggleInfo } = useInfo();
 
 <style lang="postcss" scoped>
 .bikeInfo {
-  @apply fixed bottom-0 w-full transition-transform duration-300 h-3/4;
+  @apply fixed bottom-0 w-full transition-transform duration-300 h-1/2;
   &_content {
     @apply h-full px-3 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }

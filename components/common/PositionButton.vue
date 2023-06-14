@@ -9,7 +9,7 @@ const emit = defineEmits(['updateCurrentPosition']);
 
 <template>
   <button
-    :class="['positionButton', isShowInfo ? '-translate-y-3' : 'translate-y-[calc(75vh-222px)]']"
+    :class="['positionButton', isShowInfo ? '-translate-y-3' : 'translate-y-[calc(50vh-202px)]']"
     data-after="點擊定位"
     :disabled="false"
     @click="emit('updateCurrentPosition')"
@@ -22,7 +22,7 @@ const emit = defineEmits(['updateCurrentPosition']);
 .positionButton {
   @apply
   fixed
-  bottom-3/4
+  bottom-1/2
   right-7
   w-10
   h-10

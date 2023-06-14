@@ -42,7 +42,7 @@ function formatStatus(info: BikeInfo) {
     <li
       v-for="info in bikeInfo"
       :key="info.StationUID"
-      class="py-5 border-b-[1px] border-grey-300"
+      class="info_content_item"
       @click="toggleCard(info, false)"
     >
       <div class="flex justify-between items-center mb-2 gap-5">

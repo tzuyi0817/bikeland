@@ -11,19 +11,19 @@ const props = defineProps<Props>();
     <nav :class="['bikeMenu', isShowMenu ? 'translate-y-0' : '-translate-y-full']">
       <ul class="flex h-[60px] bg-primary-100 py-2 text-primary-400">
         <li class="bikeMenu_item">
-          <nuxt-link class="border-r-[1px] border-primary-300">
+          <nuxt-link class="border-r-[1px] border-primary-300" to="/bicycle">
             <font-awesome-icon :icon="['fas', 'bicycle']" />
             <p>找單車</p>
           </nuxt-link>
         </li>
         <li class="bikeMenu_item">
-          <nuxt-link class="border-r-[1px] border-primary-300">
+          <nuxt-link class="border-r-[1px] border-primary-300" to="/route">
             <font-awesome-icon :icon="['fas', 'route']" />
             <p>找路線</p>
           </nuxt-link>
         </li>
         <li class="bikeMenu_item">
-          <nuxt-link>
+          <nuxt-link to="/attractions">
             <font-awesome-icon :icon="['fas', 'umbrella-beach']" />
             <p>找景點</p>
           </nuxt-link>

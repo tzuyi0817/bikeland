@@ -18,7 +18,7 @@ defineEmits(['update:modelValue']);
       :type="type"
       :placeholder="placeholder"
       :value="modelValue"
-      @input="(event) => $emit('update:modelValue', (event.target as HTMLInputElement).value)"
+      @input="(event: InputEvent) => $emit('update:modelValue', (event.target as HTMLInputElement).value)"
     />
     <client-only>
       <font-awesome-icon
@@ -39,6 +39,7 @@ defineEmits(['update:modelValue']);
   bg-grey-200
   rounded-lg
   text-xs
+  tracking-wide
   focus:outline-1
   focus:outline-primary-300;
   &::placeholder {
