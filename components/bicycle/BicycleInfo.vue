@@ -53,7 +53,7 @@ function formatStatus(info: BikeInfo) {
           </div>
         </div>
         <div class="text-grey-500 flex items-center gap-1">
-          <map-marker class="text-gray-500" />
+          <map-marker class="text-grey-500" />
           <span class="text-xs whitespace-nowrap">{{ `距離${info.distance}公尺` }}</span>
         </div>
       </div>

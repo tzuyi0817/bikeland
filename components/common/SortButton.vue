@@ -51,8 +51,7 @@ function toggleSort(type: string) {
     border-[1px]
     border-primary-300
     rounded-lg
-    px-3
-    py-1
+    p-1
     -translate-x-1/2
     translate-y-[calc(100%+5px)]
     transition-transform

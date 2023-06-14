@@ -17,3 +17,11 @@ export function fetchNearByAvailability({ lat, lng }: Coordinate) {
 
   return useRequest('/advanced/v2/Bike/Availability/NearBy', { method: 'get', params });
 }
+
+export function fetchCyclingShape(city: string) {
+  const params = {
+    $format: 'JSON',
+  };
+
+  return useRequest(`/basic/v2/Cycling/Shape/City/${city}`, { method: 'get', params });
+}

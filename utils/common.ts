@@ -19,6 +19,10 @@ export function calculateDistance(coord1: Coordinate, coord2: Coordinate) {
   return Math.round(distance);
 }
 
-export function sleep(delay = 300) {
-  return new Promise(resolve => setTimeout(resolve, delay));
+export function sleep(ms = 300) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function meterToKilometer(meter: number) {
+  return meter / 1000;
 }

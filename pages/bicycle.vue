@@ -59,6 +59,10 @@ watch(currentSort, changeSort);
 watch([bikeStations, availableBikes], ([stations, available]) => {
   setBikeInfo(stations, available);
 });
+onBeforeUnmount(() => {
+  currentSwitch.value = 'default';
+  bikeInfo.value = [];
+});
 </script>
 
 <template>
