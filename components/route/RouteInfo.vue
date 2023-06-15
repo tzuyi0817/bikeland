@@ -8,12 +8,21 @@ interface Props {
 }
 
 defineProps<Props>();
+const { routeShape } = useMap();
+
+function setRouteShape(info: RouteShape) {
+  routeShape.value = info;
+}
 
 function formatCyclingLength(cyclingLength: number) {
   return cyclingLength >= 1000
     ? `${meterToKilometer(cyclingLength)}公里`
     : `${cyclingLength}公尺`;
 }
+
+onBeforeUnmount(() => {
+  routeShape.value = null;
+});
 </script>
 
 <template>
@@ -22,6 +31,7 @@ function formatCyclingLength(cyclingLength: number) {
       v-for="info in routeInfo"
       :key="info.RouteName"
       class="info_content_item flex flex-col gap-2"
+      @click="setRouteShape(info)"
     >
       <div class="flex justify-between items-center gap-5">
         <p class="text-primary-500 ellipsis font-bold">{{ info.RouteName }}</p>

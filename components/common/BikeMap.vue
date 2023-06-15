@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LMap, LTileLayer, LMarker, LIcon, LPopup } from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer, LMarker, LIcon, LPopup, LPolyline, LTooltip } from '@vue-leaflet/vue-leaflet';
 import MapMarker from '@/components/common/MapMarker.vue';
 import PositionButton from '@/components/common/PositionButton.vue';
 import BicycleCard from '@/components/bicycle/BicycleCard.vue';
@@ -8,12 +8,25 @@ import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
 const markers = ref();
-const { mapZoom, mapCenterPos, bikeMarkers } = useMap();
+const { mapZoom, mapCenterPos, bikeMarkers, routePolyline, routeShape } = useMap();
 const { toggleCard, setMarkers } = useCard();
 const { isShowInfo } = useInfo();
 const { position, updateCurrentPosition } = useGeolocation();
 const { public: { mapToken, mapStyle } } = useRuntimeConfig();
 const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
+
+const routePoints = computed(() => {
+  const size = routePolyline.value.length;
+  if (!routeShape.value || !size) return [];
+  const startPoint = routePolyline.value[0];
+  const lastPoint = routePolyline.value[size - 1];
+  const { RoadSectionStart, RoadSectionEnd } = routeShape.value;
+
+  return [
+    { id: 0, latLng: [startPoint[0], startPoint[1]], roadSection: RoadSectionStart },
+    { id: 1, latLng: [lastPoint[0], lastPoint[1]], roadSection: RoadSectionEnd },
+  ];
+});
 
 function mapReCenter(coord: Coordinate) {
   mapCenterPos.value = coord;
@@ -26,8 +39,14 @@ function mapFlyTo(coord: Coordinate) {
 
 watch(markers, setMarkers);
 watch(position, mapReCenter);
-onMounted(() => {
-  // console.log(map.value);
+watch(routePolyline, (polyline) => {
+  if (polyline) {
+    const [lat, lng] = polyline[Math.floor(polyline.length / 2)];
+
+    mapFlyTo({ lat: +lat, lng: +lng });
+    return;
+  }
+  mapFlyTo(position.value);
 });
 </script>
 
@@ -58,8 +77,10 @@ onMounted(() => {
         :lat-lng="[info.StationPosition.PositionLat, info.StationPosition.PositionLon]"
         @click="toggleCard(info);"
       >
-        <l-icon class-name="marker_map">
-          <div :class="`marker_map_available ${bikeMarkerColor(info.available)}`">{{ info.available }}</div>
+        <l-icon class-name="marker_map" :icon-anchor="[19, 50]">
+          <div :class="`marker_map_available w-6 h-5 translate-y-[29px] ${bikeMarkerColor(info.available)}`">
+            {{ info.available }}
+          </div>
           <map-marker :class="`relative ${bikeMarkerColor(info.available)} z-[2]`" width="37.74" height="44" />
           <div :class="`marker_map_hole ${bikeMarkerHoleColor(info.available)}`"></div>
         </l-icon>
@@ -67,6 +88,25 @@ onMounted(() => {
           <BicycleCard />
         </l-popup>
       </l-marker>
+      <l-polyline :lat-lngs="routePolyline" color="#E75578" :weight="4"></l-polyline>
+      <template v-if="routePoints.length">
+        <l-marker
+          v-for="{ id, latLng, roadSection } in routePoints"
+          :key="id"
+          :lat-lng="latLng"
+        >
+          <l-icon class-name="marker_map" :icon-anchor="[15, 50]">
+            <div class="marker_map_available w-5 h-4 translate-y-6"></div>
+            <map-marker class="relative text-alert-500 z-[2]" width="28.8" height="36" />
+          </l-icon>
+          <l-tooltip
+            :options="{ permanent: true, direction: 'top', offset: [0, -32] }"
+            class="bg-alert-500 text-white"
+          >
+            {{ roadSection }}
+          </l-tooltip>
+        </l-marker>
+      </template>
     </l-map>
   </div>
   <position-button :is-show-info="isShowInfo" @update-current-position="updateCurrentPosition" />
@@ -89,6 +129,14 @@ onMounted(() => {
 }
 
 :deep(.leaflet-popup-tip-container) {
+  @apply hidden;
+}
+
+:deep(.leaflet-tooltip) {
+  @apply bg-alert-500 rounded border-alert-500 px-3 py-1;
+}
+
+:deep(.leaflet-tooltip-top:before) {
   @apply hidden;
 }
 </style>

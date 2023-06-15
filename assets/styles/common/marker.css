@@ -31,7 +31,7 @@
       @apply relative w-5 h-[6px] rounded-[50%] left-1/2 -translate-x-1/2 -translate-y-[2px] z-[1];
     }
     &_available {
-      @apply relative w-6 h-5 text-center font-bold bg-white left-1/2 -translate-x-1/2 translate-y-[29px];
+      @apply relative text-center font-bold bg-white left-1/2 -translate-x-1/2;
     }
   }
 
