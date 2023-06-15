@@ -84,7 +84,7 @@ watch(routePolyline, (polyline) => {
           <map-marker :class="`relative ${bikeMarkerColor(info.available)} z-[2]`" width="37.74" height="44" />
           <div :class="`marker_map_hole ${bikeMarkerHoleColor(info.available)}`"></div>
         </l-icon>
-        <l-popup>
+        <l-popup :options="{ offset: [0, -32] }">
           <BicycleCard />
         </l-popup>
       </l-marker>
