@@ -16,7 +16,10 @@ function useGeolocation() {
     const { data } = await fetchGeoDistrict({ lat, lng });
 
     if (!data.value) return;
-    useCityStore().setCity(data.value[0].City);
+    const { City, TownName } = data.value[0];
+
+    useCityStore().setCity(City);
+    useCityStore().setTownName(TownName);
   }
 
   onMounted(updateCurrentPosition);

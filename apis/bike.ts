@@ -25,3 +25,21 @@ export function fetchCyclingShape(city: string) {
 
   return useRequest(`/basic/v2/Cycling/Shape/City/${city}`, { method: 'get', params });
 }
+
+export function fetchScenicSpot(city: string, townName: string) {
+  const params = {
+    $filter: `contains(Address,'${townName}')`,
+    $format: 'JSON',
+  };
+
+  return useRequest(`/basic/v2/Tourism/ScenicSpot/${city}`, { method: 'get', params });
+}
+
+export function fetchRestaurant(city: string, townName: string) {
+  const params = {
+    $filter: `contains(Address,'${townName}')`,
+    $format: 'JSON',
+  };
+
+  return useRequest(`/basic/v2/Tourism/Restaurant/${city}`, { method: 'get', params });
+}

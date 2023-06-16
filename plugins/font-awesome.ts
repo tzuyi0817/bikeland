@@ -11,6 +11,7 @@ import {
   faSortAmountDown,
   faSearch,
   faMapMarkerAlt,
+  faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -24,6 +25,7 @@ library.add(
   faSortAmountDown,
   faSearch,
   faMapMarkerAlt,
+  faUtensils,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

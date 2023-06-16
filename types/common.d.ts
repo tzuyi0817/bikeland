@@ -1,4 +1,4 @@
-export type Page = 'default' | 'bicycle' | 'parking';
+export type Page = 'default' | 'bicycle' | 'parking' | 'umbrella-beach' | 'utensils';
 export type MenuOptions = [MenuOption, MenuOption];
 
 interface MenuOption {

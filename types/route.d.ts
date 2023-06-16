@@ -1,5 +1,3 @@
-export type RouteSortType = 'cyclingLengthShort' | 'cyclingLengthLong';
-
 export interface RouteShape {
   AuthorityName: string;
   City: string;

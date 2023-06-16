@@ -21,6 +21,8 @@ function useMap() {
           return { ...info, available: info.AvailableReturnBikes };
         });
       },
+      'umbrella-beach': () => [],
+      utensils: () => [],
       default: () => [],
     };
     return markerMap[currentSwitch.value]();
@@ -41,12 +43,9 @@ function useMap() {
       const { StationUID, StationPosition: { PositionLat, PositionLon } } = station;
       const availableBike = available.find(bike => bike.StationUID === StationUID) ?? {};
       const stationCoord = { lat: PositionLat, lng: PositionLon };
+      const distance = calculateDistance(mapCenterPos.value, stationCoord);
 
-      return {
-        ...station,
-        ...availableBike,
-        distance: calculateDistance(mapCenterPos.value, stationCoord),
-      };
+      return { ...station, ...availableBike, distance };
     });
   }
 

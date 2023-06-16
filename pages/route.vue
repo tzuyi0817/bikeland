@@ -6,7 +6,8 @@ import SortButton from '@/components/common/SortButton.vue';
 import RouteInfo from '@/components/route/RouteInfo.vue';
 import { fetchCyclingShape } from '@/apis/bike';
 import { sleep } from '@/utils/common';
-import type { RouteShape, RouteSortType } from '@/types/route';
+import type { RouteShape } from '@/types/route';
+import type { RouteSortType } from '@/types/sort';
 
 const isLoading = ref(false);
 const search = ref('');
