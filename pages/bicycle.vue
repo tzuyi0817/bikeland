@@ -41,6 +41,10 @@ function fetchBikeInfo(coord: Coordinate) {
     });
 }
 
+function changeSearch(keyword: string) {
+  console.log({ keyword });
+}
+
 async function changeSort(sortKey: BicycleSortType) {
   const isAsc = sortKey === 'distance';
 
@@ -74,7 +78,7 @@ onBeforeUnmount(() => {
     />
     <teleport to="#bikeInfo">
       <div class="info_header">
-        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />
+        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" @change-search="changeSearch" />
         <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
       </div>
       <transition name="page" mode="out-in">

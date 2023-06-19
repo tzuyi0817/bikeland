@@ -26,3 +26,17 @@ export function sleep(ms = 300) {
 export function meterToKilometer(meter: number) {
   return meter / 1000;
 }
+
+export function debounce<T>(fun: T, ms = 300) {
+  if (typeof fun !== 'function')
+    throw new TypeError('The first argument is not a function.');
+  let timer: NodeJS.Timeout | null = null;
+
+  return function(this: unknown, ...args: unknown[]) {
+    timer && clearTimeout(timer);
+    timer = setTimeout(() => {
+      fun.apply(this, args);
+      timer = null;
+    }, ms);
+  };
+}

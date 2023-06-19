@@ -1,14 +1,22 @@
 <script setup lang="ts">
+import { debounce } from '@/utils/common';
+
 interface Props {
   type?: string;
   placeholder: string;
   modelValue: string;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   type: 'text',
 });
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'changeSearch']);
+const changeSearch = debounce(() => emit('changeSearch', props.modelValue), 500);
+
+function updateSearch(event: InputEvent) {
+  emit('update:modelValue', (event.target as HTMLInputElement).value);
+  changeSearch();
+}
 </script>
 
 <template>
@@ -18,7 +26,7 @@ defineEmits(['update:modelValue']);
       :type="type"
       :placeholder="placeholder"
       :value="modelValue"
-      @input="(event: InputEvent) => $emit('update:modelValue', (event.target as HTMLInputElement).value)"
+      @input="updateSearch"
     />
     <client-only>
       <font-awesome-icon
