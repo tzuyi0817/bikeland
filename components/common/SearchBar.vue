@@ -7,26 +7,22 @@ interface Props {
   modelValue: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   type: 'text',
 });
-const emit = defineEmits(['update:modelValue', 'changeSearch']);
-const changeSearch = debounce(() => emit('changeSearch', props.modelValue), 500);
-
-function updateSearch(event: InputEvent) {
-  emit('update:modelValue', (event.target as HTMLInputElement).value);
-  changeSearch();
-}
+const emit = defineEmits(['update:modelValue']);
+const search = ref('');
+const changeSearch = debounce(() => emit('update:modelValue', search.value), 500);
 </script>
 
 <template>
   <div class="relative flex-1">
     <input
+      v-model="search"
       class="searchBar"
       :type="type"
       :placeholder="placeholder"
-      :value="modelValue"
-      @input="updateSearch"
+      @input="changeSearch"
     />
     <client-only>
       <font-awesome-icon

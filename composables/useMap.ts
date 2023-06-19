@@ -38,10 +38,10 @@ function useMap() {
     return geometry.map(geo => geo.split(' ').reverse());
   });
 
-  function setBikeInfo(stations: Array<BikeStation>, available: Array<AvailableBike>) {
+  function setBikeInfo(stations: Array<BikeStation>, availableMap: Record<string, AvailableBike>) {
     bikeInfo.value = stations.map((station) => {
       const { StationUID, StationPosition: { PositionLat, PositionLon } } = station;
-      const availableBike = available.find(bike => bike.StationUID === StationUID) ?? {};
+      const availableBike = availableMap[StationUID] ?? {};
       const stationCoord = { lat: PositionLat, lng: PositionLon };
       const distance = calculateDistance(mapCenterPos.value, stationCoord);
 

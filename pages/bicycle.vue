@@ -12,7 +12,7 @@ import type { BicycleSortType } from '@/types/sort';
 const { isShowMenu } = useMenu();
 const { bikeInfo, mapCenterPos, currentSwitch, setBikeInfo } = useMap();
 const bikeStations = ref<Array<BikeStation>>([]);
-const availableBikes = ref<Array<AvailableBike>>([]);
+const availableMap = ref<Record<string, AvailableBike>>({});
 const isLoading = ref(false);
 const search = ref('');
 const currentSort = ref<BicycleSortType>('distance');
@@ -28,21 +28,28 @@ const bicycleSortOptions = [
 
 currentSwitch.value = 'bicycle';
 
+const filterStations = computed(() => {
+  return bikeStations.value.filter(({ StationName }) => {
+    return StationName.Zh_tw.includes(search.value);
+  });
+});
+
 function fetchBikeInfo(coord: Coordinate) {
   isLoading.value = true;
   Promise.all([fetchNearByStation(coord), fetchNearByAvailability(coord)])
     .then(([{ data: stations }, { data: available }]) => {
+      const availableInfo = available?.value ?? [];
+
       bikeStations.value = stations?.value ?? [];
-      availableBikes.value = available?.value ?? [];
+      availableMap.value = availableInfo.reduce((map, info) => {
+        map[info.StationUID] = info;
+        return map;
+      }, {});
       changeSort(currentSort.value);
     })
     .finally(() => {
       isLoading.value = false;
     });
-}
-
-function changeSearch(keyword: string) {
-  console.log({ keyword });
 }
 
 async function changeSort(sortKey: BicycleSortType) {
@@ -60,7 +67,7 @@ async function changeSort(sortKey: BicycleSortType) {
 
 watch(mapCenterPos, fetchBikeInfo, { immediate: true });
 watch(currentSort, changeSort);
-watch([bikeStations, availableBikes], ([stations, available]) => {
+watch([filterStations, availableMap], ([stations, available]) => {
   setBikeInfo(stations, available);
 });
 onBeforeUnmount(() => {
@@ -78,7 +85,7 @@ onBeforeUnmount(() => {
     />
     <teleport to="#bikeInfo">
       <div class="info_header">
-        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" @change-search="changeSearch" />
+        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />
         <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
       </div>
       <transition name="page" mode="out-in">

@@ -38,7 +38,7 @@ function formatStatus(info: BikeInfo) {
 </script>
 
 <template>
-  <ul class="bicycleInfo info_content">
+  <transition-group class="bicycleInfo info_content" tag="ul" name="page">
     <li
       v-for="info in bikeInfo"
       :key="info.StationUID"
@@ -78,7 +78,8 @@ function formatStatus(info: BikeInfo) {
         </div>
       </div>
     </li>
-  </ul>
+    <li v-if="!bikeInfo.length">很抱歉，查詢不到此站點</li>
+  </transition-group>
 </template>
 
 <style lang="postcss" scoped>
