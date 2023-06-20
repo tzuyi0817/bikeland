@@ -19,7 +19,11 @@ const routeSortOptions = [
   { name: '總長較長', value: 'cyclingLengthLong' },
 ];
 
-const routes = computed<RouteShape[]>(() => data?.value ?? []);
+const routes = computed<RouteShape[]>(() => {
+  const routes = data?.value ?? [];
+
+  return routes.filter(({ RouteName }) => RouteName.includes(search.value));
+});
 
 async function changeSort(sortKey: RouteSortType) {
   const isShort = sortKey === 'cyclingLengthShort';

@@ -26,7 +26,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <ul class="routeInfo info_content">
+  <transition-group class="routeInfo info_content" tag="ul" name="page">
     <li
       v-for="info in routeInfo"
       :key="info.RouteName"
@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
         </span>
       </div>
     </li>
-  </ul>
+  </transition-group>
 </template>
 
 <style lang="postcss" scoped>
