@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MapMarker from '@/components/common/MapMarker.vue';
+import BikePrompt from '@/components/common/BikePrompt.vue';
 import { meterToKilometer } from '@/utils/common';
 import type { RouteShape } from '@/types/route';
 
@@ -55,6 +56,7 @@ onBeforeUnmount(() => {
         </span>
       </div>
     </li>
+    <bike-prompt v-if="!routeInfo.length">很抱歉，查詢不到此路線</bike-prompt>
   </transition-group>
 </template>
 

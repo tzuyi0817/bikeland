@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MapMarker from '@/components/common/MapMarker.vue';
+import BikePrompt from '@/components/common/BikePrompt.vue';
 import { bikeAvailableColor } from '@/utils/bike';
 import { isNumber } from '@/utils/checkType';
 import { BikeServiceStatusEnum, BIKE_SERVICE_STATUS } from '@/configs/bike';
@@ -78,7 +79,7 @@ function formatStatus(info: BikeInfo) {
         </div>
       </div>
     </li>
-    <li v-if="!bikeInfo.length">很抱歉，查詢不到此站點</li>
+    <bike-prompt v-if="!bikeInfo.length">很抱歉，查詢不到此站點</bike-prompt>
   </transition-group>
 </template>
 
