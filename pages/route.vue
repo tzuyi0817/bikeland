@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia';
 import { useCityStore } from '@/store';
 import SearchBar from '@/components/common/SearchBar.vue';
 import SortButton from '@/components/common/SortButton.vue';
+import Loading from '@/components/common/Loading.vue';
 import RouteInfo from '@/components/route/RouteInfo.vue';
 import { fetchCyclingShape } from '@/apis/bike';
 import { sleep } from '@/utils/common';
@@ -50,7 +51,7 @@ watch(currentSort, changeSort);
         <sort-button v-model:currentSort="currentSort" :options="routeSortOptions" />
       </div>
       <transition name="page" mode="out-in">
-        <p v-if="isLoading || pending">Loading..</p>
+        <loading v-if="isLoading || pending" />
         <route-info v-else :route-info="routes" />
       </transition>
     </teleport>

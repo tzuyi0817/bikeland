@@ -4,6 +4,7 @@ import { useCityStore } from '@/store';
 import BikeSwitch from '@/components/common/BikeSwitch.vue';
 import SearchBar from '@/components/common/SearchBar.vue';
 import SortButton from '@/components/common/SortButton.vue';
+import Loading from '@/components/common/Loading.vue';
 import AttractionsInfo from '@/components/attractions/AttractionsInfo.vue';
 import { fetchScenicSpot, fetchRestaurant } from '@/apis/bike';
 import type { MenuOptions, Page } from '@/types/common';
@@ -74,7 +75,7 @@ onBeforeUnmount(() => {
         <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
       </div>
       <transition name="page" mode="out-in">
-        <p v-if="isLoading">Loading..</p>
+        <loading v-if="isLoading" />
         <attractions-info v-else :attractions-info="attractions" />
       </transition>
     </teleport>

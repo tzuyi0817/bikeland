@@ -2,6 +2,7 @@
 import BikeSwitch from '@/components/common/BikeSwitch.vue';
 import SearchBar from '@/components/common/SearchBar.vue';
 import SortButton from '@/components/common/SortButton.vue';
+import Loading from '@/components/common/Loading.vue';
 import BicycleInfo from '@/components/bicycle/BicycleInfo.vue';
 import { fetchNearByStation, fetchNearByAvailability } from '@/apis/bike';
 import { sleep } from '@/utils/common';
@@ -89,7 +90,7 @@ onBeforeUnmount(() => {
         <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
       </div>
       <transition name="page" mode="out-in">
-        <p v-if="isLoading">Loading..</p>
+        <loading v-if="isLoading" />
         <bicycle-info v-else :bike-info="bikeInfo" />
       </transition>
     </teleport>
