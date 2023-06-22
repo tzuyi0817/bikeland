@@ -10,6 +10,10 @@ export interface ScenicSpot {
   ZipCode: string;
   TravelInfo: string;
   OpenTime: string;
+  Class1?: string;
+  Class2?: string;
+  Class3?: string;
+  WebsiteUrl?: string;
   Picture: {
     PictureUrl1: string;
     PictureDescription1: string;
@@ -19,7 +23,11 @@ export interface ScenicSpot {
     PositionLat: number;
     GeoHash: string;
   },
-  ParkingPosition: {},
+  ParkingPosition: {
+    PositionLon: number;
+    PositionLat: number;
+    GeoHash: string;
+  },
   City: string;
   SrcUpdateTime: string;
   UpdateTime: string;
@@ -33,6 +41,7 @@ export interface Restaurant {
   ZipCode: string;
   Phone: string;
   OpenTime: string;
+  WebsiteUrl?: string;
   Picture: {
     PictureUrl1: string;
     PictureDescription1: string;
