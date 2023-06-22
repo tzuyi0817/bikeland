@@ -7,6 +7,7 @@ import SortButton from '@/components/common/SortButton.vue';
 import Loading from '@/components/common/Loading.vue';
 import AttractionsInfo from '@/components/attractions/AttractionsInfo.vue';
 import { fetchScenicSpot, fetchRestaurant } from '@/apis/bike';
+import { onImageInView } from '@/utils/image';
 import type { MenuOptions, Page } from '@/types/common';
 import type { Attractions } from '@/types/attractions';
 import type { BicycleSortType } from '@/types/sort';
@@ -20,6 +21,7 @@ const attractions = ref<Attractions[]>([]);
 const isLoading = ref(false);
 const search = ref('');
 const currentSort = ref<BicycleSortType>('distance');
+const observer = useIntersectionObserver(onImageInView, {});
 const attractionsSwitch: MenuOptions = [
   { value: 'umbrella-beach', name: '找景點' },
   { value: 'utensils', name: '找餐廳' },
@@ -76,7 +78,7 @@ onBeforeUnmount(() => {
       </div>
       <transition name="page" mode="out-in">
         <loading v-if="isLoading" />
-        <attractions-info v-else :attractions-info="attractions" />
+        <attractions-info v-else :attractions-info="attractions" :observer="observer" />
       </transition>
     </teleport>
   </div>

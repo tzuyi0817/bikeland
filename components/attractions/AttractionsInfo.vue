@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import MapMarker from '@/components/common/MapMarker.vue';
+import LazyImage from '@/components/common/LazyImage.vue';
 import type { Attractions } from '@/types/attractions';
 
 interface Props {
   attractionsInfo: Array<Attractions>;
+  observer: IntersectionObserver | null;
 }
 
 defineProps<Props>();
@@ -16,11 +18,12 @@ defineProps<Props>();
       :key="info.ScenicSpotID ?? info.RestaurantID"
       class="info_content_item flex flex-col"
     >
-      <img
+      <lazy-image
         class="rounded-lg h-40 object-cover mb-2"
+        :observer="observer"
         :src="info.Picture.PictureUrl1"
         :alt="info.Picture.PictureDescription1"
-      >
+      />
       <section class="attractionsInfo_section mb-1">
         <h6 class="text-primary-500 ellipsis flex-1">{{ info.ScenicSpotName ?? info.RestaurantName }}</h6>
         <div class="text-grey-400 flex items-center gap-1">
