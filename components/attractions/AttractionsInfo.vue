@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MapMarker from '@/components/common/MapMarker.vue';
 import LazyImage from '@/components/common/LazyImage.vue';
+import BikePrompt from '@/components/common/BikePrompt.vue';
 import type { Attractions } from '@/types/attractions';
 
 interface Props {
@@ -18,12 +19,15 @@ defineProps<Props>();
       :key="info.ScenicSpotID ?? info.RestaurantID"
       class="info_content_item flex flex-col"
     >
-      <lazy-image
-        class="rounded-lg h-40 object-cover mb-2"
-        :observer="observer"
-        :src="info.Picture.PictureUrl1"
-        :alt="info.Picture.PictureDescription1"
-      />
+      <section :class="['attractionsInfo_image', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']">
+        <lazy-image
+          v-if="info.Picture.PictureUrl1"
+          :observer="observer"
+          :src="info.Picture.PictureUrl1"
+          :alt="info.Picture.PictureDescription1"
+        />
+        <img v-else src="@/assets/images/logo-dark.png" width="246" alt="logo-dark">
+      </section>
       <section class="attractionsInfo_section mb-1">
         <h6 class="text-primary-500 ellipsis flex-1">{{ info.ScenicSpotName ?? info.RestaurantName }}</h6>
         <div class="text-grey-400 flex items-center gap-1">
@@ -42,22 +46,38 @@ defineProps<Props>();
             class="attractionsInfo_icon"
             :class="{ 'attractionsInfo_icon-disabled': !info.WebsiteUrl }"
             src="@/assets/images/icon/website-url.svg"
-            alt=""
+            alt="website-url"
           >
           <img
             class="attractionsInfo_icon"
             :class="{ 'attractionsInfo_icon-disabled': !info.Phone }"
             src="@/assets/images/icon/phone.svg"
-            alt=""
+            alt="phone"
           >
         </div>
       </section>
     </li>
+    <bike-prompt v-if="!attractionsInfo.length">很抱歉，查詢不到此景點</bike-prompt>
   </transition-group>
 </template>
 
 <style lang="postcss" scoped>
 .attractionsInfo {
+  &_image {
+    @apply
+    flex
+    justify-center
+    items-center
+    border-[1px]
+    rounded-lg
+    h-40
+    mb-2
+    overflow-hidden
+    cursor-pointer
+    transition-colors
+    duration-300
+    hover:bg-primary-100;
+  }
   &_section {
     @apply flex justify-between items-center gap-1;
   }
