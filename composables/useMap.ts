@@ -2,6 +2,7 @@ import { calculateDistance } from '@/utils/common';
 import type { Coordinate, Page } from '@/types/common';
 import type { BikeInfo, BikeStation, AvailableBike } from '@/types/bike';
 import type { RouteShape } from '@/types/route';
+import type { Attractions } from '@/types/attractions';
 
 function useMap() {
   const mapZoom = useState('mapZoom', () => 16);
@@ -9,6 +10,8 @@ function useMap() {
   const currentSwitch = useState<Page>('currentSwitch', () => 'default');
   const bikeInfo = useState<BikeInfo[]>('bikeInfo', () => []);
   const routeShape = useState<RouteShape | null>('routeShape', () => null);
+  const attractions = useState<Attractions[]>('attractions', () => []);
+  const currentAttraction = useState<Attractions | null>('currentAttraction', () => null);
   const bikeMarkers = computed(() => {
     const markerMap = {
       bicycle() {
@@ -55,6 +58,8 @@ function useMap() {
     mapCenterPos,
     currentSwitch,
     routeShape,
+    attractions,
+    currentAttraction,
     bikeMarkers,
     routePolyline,
     setBikeInfo,

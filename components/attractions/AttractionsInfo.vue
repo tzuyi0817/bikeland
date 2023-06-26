@@ -10,6 +10,15 @@ interface Props {
 }
 
 defineProps<Props>();
+const currentAttraction = useState<Attractions | null>('currentAttraction');
+
+function setCurrentAttraction(attraction: Attractions) {
+  currentAttraction.value = attraction;
+}
+
+onBeforeUnmount(() => {
+  currentAttraction.value = null;
+});
 </script>
 
 <template>
@@ -18,6 +27,7 @@ defineProps<Props>();
       v-for="info in attractionsInfo"
       :key="info.ScenicSpotID ?? info.RestaurantID"
       class="info_content_item flex flex-col"
+      @click="setCurrentAttraction(info)"
     >
       <section :class="['attractionsInfo_image', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']">
         <lazy-image

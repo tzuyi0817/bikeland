@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { LMap, LTileLayer, LMarker, LIcon, LPopup, LPolyline, LTooltip } from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer, LMarker, LIcon, LPopup, LPolyline } from '@vue-leaflet/vue-leaflet';
 import MapMarker from '@/components/common/MapMarker.vue';
 import PositionButton from '@/components/common/PositionButton.vue';
+import TooltipMarker from '@/components/common/TooltipMarker.vue';
 import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { bikeMarkerColor, bikeMarkerHoleColor } from '@/utils/bike';
 import type { Coordinate } from '@/types/common';
 
 const map = ref<typeof LMap>();
 const markers = ref();
-const { mapZoom, mapCenterPos, bikeMarkers, routePolyline, routeShape } = useMap();
+const {
+  mapZoom,
+  mapCenterPos,
+  bikeMarkers,
+  routePolyline,
+  routeShape,
+  attractions,
+  currentAttraction,
+} = useMap();
 const { toggleCard, setMarkers } = useCard();
 const { isShowInfo } = useInfo();
 const { position, updateCurrentPosition } = useGeolocation();
@@ -47,6 +56,15 @@ watch(routePolyline, (polyline) => {
     return;
   }
   mapFlyTo(position.value);
+});
+watch(currentAttraction, (attraction) => {
+  if (!attraction) {
+    mapFlyTo(position.value);
+    return;
+  }
+  const { Position: { PositionLat, PositionLon } } = attraction;
+
+  mapFlyTo({ lat: PositionLat, lng: PositionLon });
 });
 </script>
 
@@ -89,24 +107,22 @@ watch(routePolyline, (polyline) => {
         </l-popup>
       </l-marker>
       <l-polyline :lat-lngs="routePolyline" color="#E75578" :weight="4"></l-polyline>
-      <template v-if="routePoints.length">
-        <l-marker
-          v-for="{ id, latLng, roadSection } in routePoints"
-          :key="id"
-          :lat-lng="latLng"
-        >
-          <l-icon class-name="marker_map" :icon-anchor="[15, 50]">
-            <div class="marker_map_available w-5 h-4 translate-y-6"></div>
-            <map-marker class="relative text-alert-500 z-[2]" width="28.8" height="36" />
-          </l-icon>
-          <l-tooltip
-            :options="{ permanent: true, direction: 'top', offset: [0, -32] }"
-            class="bg-alert-500 text-white"
-          >
-            {{ roadSection }}
-          </l-tooltip>
-        </l-marker>
-      </template>
+      <tooltip-marker
+        v-for="{ id, latLng, roadSection } in routePoints"
+        :key="id"
+        :is-show-tooltip="true"
+        :lat-lng="latLng"
+      >
+        {{ roadSection }}
+      </tooltip-marker>
+      <tooltip-marker
+        v-for="{ ScenicSpotID, RestaurantID, Position, ScenicSpotName, RestaurantName } in attractions"
+        :key="ScenicSpotID ?? RestaurantID"
+        :is-show-tooltip="currentAttraction?.ScenicSpotID === ScenicSpotID && currentAttraction?.RestaurantID === RestaurantID"
+        :lat-lng="[Position.PositionLat, Position.PositionLon]"
+      >
+        {{ ScenicSpotName ?? RestaurantName }}
+      </tooltip-marker>
     </l-map>
   </div>
   <position-button :is-show-info="isShowInfo" @update-current-position="updateCurrentPosition" />

@@ -15,8 +15,9 @@ import type { BicycleSortType } from '@/types/sort';
 type AttractionsType = 'umbrella-beach' | 'utensils';
 
 const { isShowMenu } = useMenu();
-const { currentSwitch } = useMap();
+const { currentSwitch, attractions: attractionsForMap } = useMap();
 const { city, townName } = storeToRefs(useCityStore());
+const currentAttraction = useState<Attractions | null>('currentAttraction');
 const attractions = ref<Attractions[]>([]);
 const isLoading = ref(false);
 const search = ref('');
@@ -34,6 +35,19 @@ const bicycleSortOptions = [
 
 currentSwitch.value = 'umbrella-beach';
 
+const filterAttractions = computed(() => {
+  return attractions.value.filter(({ ScenicSpotName, RestaurantName }) => {
+    const nameMap = {
+      'umbrella-beach': ScenicSpotName,
+      utensils: RestaurantName,
+    };
+
+    return isAttractions(currentSwitch.value)
+      ? nameMap[currentSwitch.value].includes(search.value)
+      : [];
+  });
+});
+
 const searchBarPlaceholder = computed(() => {
   return `搜尋${currentSwitch.value === 'umbrella-beach' ? '景點' : '餐廳'}或鄰近地點`;
 });
@@ -48,6 +62,7 @@ async function fetchAttractions(type: AttractionsType, city: string, townName: s
     utensils: fetchRestaurant,
   };
   isLoading.value = true;
+  attractions.value = [];
   const { data } = await apiMap[type](city, townName);
 
   attractions.value = data?.value ?? [];
@@ -55,12 +70,17 @@ async function fetchAttractions(type: AttractionsType, city: string, townName: s
 }
 
 watch([currentSwitch, city, townName], ([type, city, townName]) => {
+  currentAttraction.value = null;
   isAttractions(type) && city && townName
     ? fetchAttractions(type, city, townName)
     : attractions.value = [];
 }, { immediate: true });
+watch(filterAttractions, (attractions) => {
+  attractionsForMap.value = attractions;
+});
 onBeforeUnmount(() => {
   currentSwitch.value = 'default';
+  attractionsForMap.value = [];
 });
 </script>
 
@@ -78,7 +98,7 @@ onBeforeUnmount(() => {
       </div>
       <transition name="page" mode="out-in">
         <loading v-if="isLoading" />
-        <attractions-info v-else :attractions-info="attractions" :observer="observer" />
+        <attractions-info v-else :attractions-info="filterAttractions" :observer="observer" />
       </transition>
     </teleport>
   </div>
