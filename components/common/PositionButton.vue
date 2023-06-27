@@ -1,6 +1,7 @@
 <script setup lang="ts">
 interface Props {
   isShowInfo: boolean;
+  isUpdatingPosition: boolean;
 }
 
 defineProps<Props>();
@@ -11,7 +12,7 @@ const emit = defineEmits(['updateCurrentPosition']);
   <button
     :class="['positionButton', isShowInfo ? '-translate-y-3' : 'translate-y-[calc(50vh-202px)]']"
     data-after="點擊定位"
-    :disabled="false"
+    :disabled="isUpdatingPosition"
     @click="emit('updateCurrentPosition')"
   >
     <img src="@/assets/images/icon/cross-hairs.svg" alt="" />

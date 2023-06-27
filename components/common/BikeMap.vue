@@ -20,7 +20,7 @@ const {
 } = useMap();
 const { toggleCard, setMarkers } = useCard();
 const { isShowInfo } = useInfo();
-const { position, updateCurrentPosition } = useGeolocation();
+const { position, isUpdatingPosition, updateCurrentPosition } = useGeolocation();
 const { public: { mapToken, mapStyle } } = useRuntimeConfig();
 const attribution = 'Imagery &copy; <a target="_blank" href="https://www.mapbox.com/">Mapbox</a>';
 
@@ -125,7 +125,11 @@ watch(currentAttraction, (attraction) => {
       </tooltip-marker>
     </l-map>
   </div>
-  <position-button :is-show-info="isShowInfo" @update-current-position="updateCurrentPosition" />
+  <position-button
+    :is-show-info="isShowInfo"
+    :is-updating-position="isUpdatingPosition"
+    @update-current-position="updateCurrentPosition"
+  />
 </template>
 
 <style lang="postcss" scoped>
