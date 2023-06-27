@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BikeCollapse from '@/components/common/BikeCollapse.vue';
+
 const { isShowInfo, toggleInfo } = useInfo();
 </script>
 
@@ -7,14 +9,7 @@ const { isShowInfo, toggleInfo } = useInfo();
     <div class="bikeInfo_content">
       <div id="bikeInfo"></div>
     </div>
-    <div class="bikeInfo_collapse" @click="toggleInfo">
-      <img
-        src="@/assets/images/icon/triangle.svg"
-        :class="[isShowInfo ? 'rotate-180' : 'rotate-0']"
-        width="10"
-        alt=""
-      />
-    </div>
+    <bike-collapse :is-open="isShowInfo" @toggle="toggleInfo" />
   </div>
 </template>
 
@@ -23,20 +18,6 @@ const { isShowInfo, toggleInfo } = useInfo();
   @apply fixed bottom-0 w-full transition-transform duration-300 h-1/2;
   &_content {
     @apply w-full h-full px-3 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
-  }
-  &_collapse {
-    @apply
-    absolute
-    bg-white
-    top-0
-    left-1/2
-    -translate-x-1/2
-    -translate-y-full
-    px-5
-    py-1
-    rounded-t-lg
-    z-10
-    shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
 }
 </style>

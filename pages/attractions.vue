@@ -6,6 +6,7 @@ import SearchBar from '@/components/common/SearchBar.vue';
 import SortButton from '@/components/common/SortButton.vue';
 import Loading from '@/components/common/Loading.vue';
 import AttractionsInfo from '@/components/attractions/AttractionsInfo.vue';
+import AttractionsDescription from '@/components/attractions/AttractionsDescription.vue';
 import { fetchScenicSpot, fetchRestaurant } from '@/apis/bike';
 import { onImageInView } from '@/utils/image';
 import type { MenuOptions, Page } from '@/types/common';
@@ -102,5 +103,6 @@ onBeforeUnmount(() => {
         </transition>
       </teleport>
     </client-only>
+    <attractions-description />
   </div>
 </template>
