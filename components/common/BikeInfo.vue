@@ -22,7 +22,7 @@ const { isShowInfo, toggleInfo } = useInfo();
 .bikeInfo {
   @apply fixed bottom-0 w-full transition-transform duration-300 h-1/2;
   &_content {
-    @apply h-full px-3 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
+    @apply w-full h-full px-3 py-5 rounded-lg bg-white shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
   }
   &_collapse {
     @apply

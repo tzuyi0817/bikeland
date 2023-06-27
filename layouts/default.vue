@@ -6,7 +6,7 @@ import BikeMap from '@/components/common/BikeMap.vue';
 </script>
 
 <template>
-  <main>
+  <main class="overflow-x-hidden">
     <bike-map />
     <navigation />
     <slot></slot>

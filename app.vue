@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<style>
+<style lang="postcss">
 .page-enter-active,
 .page-leave-active {
   transition: all 0.5s;

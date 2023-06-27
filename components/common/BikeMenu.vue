@@ -3,36 +3,41 @@ interface Props {
   isShowMenu: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
+const emit = defineEmits(['toggleMenu']);
+
+function closeMenu() {
+  emit('toggleMenu');
+}
 </script>
 
 <template>
   <client-only>
     <nav :class="['bikeMenu', isShowMenu ? 'translate-y-0' : '-translate-y-full']">
       <ul class="flex h-[60px] bg-primary-100 py-2 text-primary-400">
-        <li class="bikeMenu_item">
+        <li class="bikeMenu_item" @click="closeMenu">
           <nuxt-link class="border-r-[1px] border-primary-300" to="/bicycle">
             <font-awesome-icon :icon="['fas', 'bicycle']" />
             <p>找單車</p>
           </nuxt-link>
         </li>
-        <li class="bikeMenu_item">
+        <li class="bikeMenu_item" @click="closeMenu">
           <nuxt-link class="border-r-[1px] border-primary-300" to="/route">
             <font-awesome-icon :icon="['fas', 'route']" />
             <p>找路線</p>
           </nuxt-link>
         </li>
-        <li class="bikeMenu_item">
+        <li class="bikeMenu_item" @click="closeMenu">
           <nuxt-link to="/attractions">
             <font-awesome-icon :icon="['fas', 'umbrella-beach']" />
             <p>找景點</p>
           </nuxt-link>
         </li>
       </ul>
-      <div class="h-9 text-accent-600 flex justify-center items-center bg-accent-100 gap-1">
+      <section class="h-9 text-accent-600 flex justify-center items-center bg-accent-100 gap-1">
         <font-awesome-icon :icon="['fas', 'phone-alt']" class="text-xs rotate-90" />
         <p class="font-bold text-xs">聯絡單車客服</p>
-      </div>
+      </section>
     </nav>
   </client-only>
 </template>

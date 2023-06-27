@@ -2,7 +2,7 @@
 
 @layer components {
   #bikeInfo {
-    @apply h-full;
+    @apply h-full w-full;
     .info_header {
       @apply px-3 flex gap-3 items-center mb-5;
     }

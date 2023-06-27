@@ -16,7 +16,7 @@ const { isShowMenu, toggleMenu } = useMenu();
         />
       </client-only>
     </header>
-    <bike-menu :is-show-menu="isShowMenu" />
+    <bike-menu :is-show-menu="isShowMenu" @toggle-menu="toggleMenu" />
   </div>
 </template>
 

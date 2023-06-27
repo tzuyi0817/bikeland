@@ -79,7 +79,6 @@ watch(filterAttractions, (attractions) => {
   attractionsForMap.value = attractions;
 });
 onBeforeUnmount(() => {
-  currentSwitch.value = 'default';
   attractionsForMap.value = [];
 });
 </script>
@@ -91,15 +90,17 @@ onBeforeUnmount(() => {
       :is-show-menu="isShowMenu"
       :options="attractionsSwitch"
     />
-    <teleport to="#bikeInfo">
-      <div class="info_header">
-        <search-bar v-model="search" type="text" :placeholder="searchBarPlaceholder" />
-        <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
-      </div>
-      <transition name="page" mode="out-in">
-        <loading v-if="isLoading" />
-        <attractions-info v-else :attractions-info="filterAttractions" :observer="observer" />
-      </transition>
-    </teleport>
+    <client-only>
+      <teleport to="#bikeInfo">
+        <div class="info_header">
+          <search-bar v-model="search" type="text" :placeholder="searchBarPlaceholder" />
+          <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
+        </div>
+        <transition name="page" mode="out-in">
+          <loading v-if="isLoading" />
+          <attractions-info v-else :attractions-info="filterAttractions" :observer="observer" />
+        </transition>
+      </teleport>
+    </client-only>
   </div>
 </template>

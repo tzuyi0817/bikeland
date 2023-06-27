@@ -45,15 +45,17 @@ watch(currentSort, changeSort);
 
 <template>
   <div>
-    <teleport to="#bikeInfo">
-      <div class="info_header">
-        <search-bar v-model="search" type="text" placeholder="搜尋路線或鄰近地點" />
-        <sort-button v-model:currentSort="currentSort" :options="routeSortOptions" />
-      </div>
-      <transition name="page" mode="out-in">
-        <loading v-if="isLoading || pending" />
-        <route-info v-else :route-info="routes" />
-      </transition>
-    </teleport>
+    <client-only>
+      <teleport to="#bikeInfo">
+        <div class="info_header">
+          <search-bar v-model="search" type="text" placeholder="搜尋路線或鄰近地點" />
+          <sort-button v-model:currentSort="currentSort" :options="routeSortOptions" />
+        </div>
+        <transition name="page" mode="out-in">
+          <loading v-if="isLoading || pending" />
+          <route-info v-else :route-info="routes" />
+        </transition>
+      </teleport>
+    </client-only>
   </div>
 </template>

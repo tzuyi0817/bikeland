@@ -72,7 +72,6 @@ watch([filterStations, availableMap], ([stations, available]) => {
   setBikeInfo(stations, available);
 });
 onBeforeUnmount(() => {
-  currentSwitch.value = 'default';
   bikeInfo.value = [];
 });
 </script>
@@ -84,15 +83,17 @@ onBeforeUnmount(() => {
       :is-show-menu="isShowMenu"
       :options="bicycleSwitch"
     />
-    <teleport to="#bikeInfo">
-      <div class="info_header">
-        <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />
-        <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
-      </div>
-      <transition name="page" mode="out-in">
-        <loading v-if="isLoading" />
-        <bicycle-info v-else :bike-info="bikeInfo" />
-      </transition>
-    </teleport>
+    <client-only>
+      <teleport to="#bikeInfo">
+        <div class="info_header">
+          <search-bar v-model="search" type="text" placeholder="搜尋站點或鄰近地點" />
+          <sort-button v-model:currentSort="currentSort" :options="bicycleSortOptions" />
+        </div>
+        <transition name="page" mode="out-in">
+          <loading v-if="isLoading" />
+          <bicycle-info v-else :bike-info="bikeInfo" />
+        </transition>
+      </teleport>
+    </client-only>
   </div>
 </template>
