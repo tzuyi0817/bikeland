@@ -1,0 +1,24 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .image {
+    &_section {
+      @apply
+      flex
+      justify-center
+      items-center
+      border-[1px]
+      rounded-lg
+      h-40
+      mb-2
+      overflow-hidden
+      cursor-pointer
+      transition-colors
+      duration-300
+      hover:bg-primary-100;
+    }
+    &_effect {
+      @apply w-full h-full object-cover transition-[scaleX_scaleY] duration-300 hover:scale-125;
+    }
+  }
+}

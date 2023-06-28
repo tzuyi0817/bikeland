@@ -23,10 +23,5 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <img
-    ref="imageRef"
-    class="w-full h-full object-cover transition-[scaleX_scaleY] duration-300 hover:scale-125"
-    :data-src="src"
-    :alt="alt"
-  >
+  <img ref="imageRef" class="image_effect" :data-src="src" :alt="alt">
 </template>

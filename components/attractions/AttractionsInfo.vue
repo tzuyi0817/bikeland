@@ -29,7 +29,7 @@ onBeforeUnmount(() => {
       class="info_content_item flex flex-col"
       @click="setCurrentAttraction(info)"
     >
-      <section :class="['attractionsInfo_image', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']">
+      <section :class="['image_section', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']">
         <lazy-image
           v-if="info.Picture.PictureUrl1"
           :observer="observer"
@@ -73,21 +73,6 @@ onBeforeUnmount(() => {
 
 <style lang="postcss" scoped>
 .attractionsInfo {
-  &_image {
-    @apply
-    flex
-    justify-center
-    items-center
-    border-[1px]
-    rounded-lg
-    h-40
-    mb-2
-    overflow-hidden
-    cursor-pointer
-    transition-colors
-    duration-300
-    hover:bg-primary-100;
-  }
   &_section {
     @apply flex justify-between items-center gap-1;
   }
