@@ -6,7 +6,7 @@ import type { Attractions } from '@/types/attractions';
 
 function useMap() {
   const mapZoom = useState('mapZoom', () => 16);
-  const mapCenterPos = useState<Coordinate>('mapCenterPos', () => ({ lat: 25.0802696, lng: 121.5674925 }));
+  const mapCenterPos = useState<Coordinate>('mapCenterPos', () => ({ lat: 24.91571, lng: 121.6739 }));
   const currentSwitch = useState<Page>('currentSwitch', () => 'default');
   const bikeInfo = useState<BikeInfo[]>('bikeInfo', () => []);
   const routeShape = useState<RouteShape | null>('routeShape', () => null);

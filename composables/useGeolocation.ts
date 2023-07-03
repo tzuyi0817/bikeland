@@ -12,7 +12,9 @@ function useGeolocation() {
       position.value = { lat: coords.latitude, lng: coords.longitude };
       await fetchCurrentCity({ lat: coords.latitude, lng: coords.longitude });
       isUpdatingPosition.value = false;
-    }, (error) => {
+    }, async(error) => {
+      await fetchCurrentCity(position.value);
+      isUpdatingPosition.value = false;
       throw new Error(error.message, { cause: error });
     });
   }
