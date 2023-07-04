@@ -6,6 +6,7 @@ import TooltipMarker from '@/components/common/TooltipMarker.vue';
 import BicycleCard from '@/components/bicycle/BicycleCard.vue';
 import { bikeMarkerColor, bikeMarkerHoleColor } from '@/utils/bike';
 import type { Coordinate } from '@/types/common';
+import type { Attractions } from '@/types/attractions';
 
 const map = ref<typeof LMap>();
 const markers = ref();
@@ -44,6 +45,10 @@ function mapReCenter(coord: Coordinate) {
 
 function mapFlyTo(coord: Coordinate) {
   map.value?.leafletObject?.flyTo([coord.lat, coord.lng]);
+}
+
+function setCurrentAttraction(attraction: Attractions) {
+  currentAttraction.value = attraction;
 }
 
 watch(markers, setMarkers);
@@ -93,7 +98,7 @@ watch(currentAttraction, (attraction) => {
         :key="info.StationUID"
         :name="info.StationUID"
         :lat-lng="[info.StationPosition.PositionLat, info.StationPosition.PositionLon]"
-        @click="toggleCard(info);"
+        @click="toggleCard(info)"
       >
         <l-icon class-name="marker_map" :icon-anchor="[19, 50]">
           <div :class="`marker_map_available w-6 h-5 translate-y-[29px] ${bikeMarkerColor(info.available)}`">
@@ -116,12 +121,14 @@ watch(currentAttraction, (attraction) => {
         {{ roadSection }}
       </tooltip-marker>
       <tooltip-marker
-        v-for="{ ScenicSpotID, RestaurantID, Position, ScenicSpotName, RestaurantName } in attractions"
-        :key="ScenicSpotID ?? RestaurantID"
-        :is-show-tooltip="currentAttraction?.ScenicSpotID === ScenicSpotID && currentAttraction?.RestaurantID === RestaurantID"
-        :lat-lng="[Position.PositionLat, Position.PositionLon]"
+        v-for="attraction in attractions"
+        :key="attraction.ScenicSpotID ?? attraction.RestaurantID"
+        :is-show-tooltip="currentAttraction?.ScenicSpotID === attraction.ScenicSpotID &&
+          currentAttraction?.RestaurantID === attraction.RestaurantID"
+        :lat-lng="[attraction.Position.PositionLat, attraction.Position.PositionLon]"
+        @click="setCurrentAttraction(attraction)"
       >
-        {{ ScenicSpotName ?? RestaurantName }}
+        {{ attraction.ScenicSpotName ?? attraction.RestaurantName }}
       </tooltip-marker>
     </l-map>
   </div>

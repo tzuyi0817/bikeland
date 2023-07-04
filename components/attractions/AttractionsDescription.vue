@@ -22,7 +22,7 @@ function toggleDescription() {
       />
       <img v-else src="@/assets/images/logo-dark.png" width="246" alt="logo-dark">
     </section>
-    <h6 class="text-primary-500">{{ currentAttraction?.ScenicSpotName ?? info?.RestaurantName }}</h6>
+    <h6 class="text-primary-500">{{ currentAttraction?.ScenicSpotName ?? currentAttraction?.RestaurantName }}</h6>
     <p class="attractionsDescription_text">
       <map-marker width="13" height="13" />
       <span class="ellipsis">{{ currentAttraction?.Address }}</span>
@@ -47,6 +47,8 @@ function toggleDescription() {
   px-6
   py-5
   bg-white
+  rounded-lg
+  shadow-[0px_-2px_4px_0px_rgba(118,118,118,0.30)]
   transition-transform
   duration-300
   z-10;

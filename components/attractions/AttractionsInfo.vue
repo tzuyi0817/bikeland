@@ -16,6 +16,15 @@ function setCurrentAttraction(attraction: Attractions) {
   currentAttraction.value = attraction;
 }
 
+function redirectAttraction(url?: string) {
+  if (!url) return;
+  window.open(url, '_self');
+}
+
+function callAttraction(phone: string) {
+  window.open(`tel:${phone}`, '_self');
+}
+
 onBeforeUnmount(() => {
   currentAttraction.value = null;
 });
@@ -27,9 +36,11 @@ onBeforeUnmount(() => {
       v-for="info in attractionsInfo"
       :key="info.ScenicSpotID ?? info.RestaurantID"
       class="info_content_item flex flex-col"
-      @click="setCurrentAttraction(info)"
     >
-      <section :class="['image_section', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']">
+      <section
+        :class="['image_section', info.Picture.PictureUrl1 ? 'border-transparent' : 'border-grey-400']"
+        @click="setCurrentAttraction(info)"
+      >
         <lazy-image
           v-if="info.Picture.PictureUrl1"
           :observer="observer"
@@ -57,12 +68,14 @@ onBeforeUnmount(() => {
             :class="{ 'attractionsInfo_icon-disabled': !info.WebsiteUrl }"
             src="@/assets/images/icon/website-url.svg"
             alt="website-url"
+            @click="redirectAttraction(info.WebsiteUrl)"
           >
           <img
             class="attractionsInfo_icon"
             :class="{ 'attractionsInfo_icon-disabled': !info.Phone }"
             src="@/assets/images/icon/phone.svg"
             alt="phone"
+            @click="callAttraction(info.Phone)"
           >
         </div>
       </section>
