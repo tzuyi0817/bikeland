@@ -7,11 +7,11 @@ const { isShowMenu, toggleMenu } = useMenu();
 <template>
   <div class="fixed w-full">
     <header class="navigation">
-      <img src="@/assets/images/logo-light.png" width="106" alt="LOGO" />
+      <img src="@/assets/images/logo-light.png" class="w-[106px] md:w-52" alt="LOGO" />
       <client-only>
         <font-awesome-icon
           :icon="['fas', 'bars']"
-          class="text-white text-base"
+          class="text-white text-base md:!hidden"
           @click="toggleMenu"
         />
       </client-only>
@@ -30,6 +30,9 @@ const { isShowMenu, toggleMenu } = useMenu();
   items-center
   px-5
   z-10
-  bg-primary-400;
+  bg-primary-400
+  md:h-auto
+  md:px-[72px]
+  md:py-5;
 }
 </style>

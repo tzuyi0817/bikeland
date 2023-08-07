@@ -3,7 +3,7 @@ import { fetchGeoDistrict } from '@/apis/common';
 import type { Coordinate } from '@/types/common';
 
 function useGeolocation() {
-  const position = ref({ lat: 24.91571, lng: 121.6739 });
+  const position = ref({ lat: 25.0336066, lng: 121.5647928 });
   const isUpdatingPosition = ref(false);
 
   function updateCurrentPosition() {

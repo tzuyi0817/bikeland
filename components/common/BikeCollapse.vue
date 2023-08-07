@@ -31,6 +31,7 @@ const emit = defineEmits(['toggle']);
   py-1
   rounded-t-lg
   z-10
-  shadow-[0px_-2px_4px_rgba(118,118,118,0.3)];
+  shadow-[0px_-2px_4px_rgba(118,118,118,0.3)]
+  md:hidden;
 }
 </style>
