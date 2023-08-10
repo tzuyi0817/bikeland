@@ -19,7 +19,7 @@ h4 {
   @apply text-2xl font-bold;
 }
 h5 {
-  @apply text-xl font-bold;
+  @apply text-xl font-bold md:text-2xl;
 }
 h6 {
   @apply text-lg font-bold;

@@ -24,7 +24,7 @@ function toggleSort(type: string) {
       <client-only>
         <font-awesome-icon :icon="['fas', 'sort-amount-down']" />
       </client-only>
-      <span>排序</span>
+      <span class="md:text-sm">排序</span>
     </button>
     <menu :class="[isShowMenu ? 'scale-y-100' : 'scale-y-0']">
       <li
@@ -70,7 +70,8 @@ function toggleSort(type: string) {
       hover:bg-primary-100
       hover:outline
       hover:outline-[1px]
-    hover:outline-primary-300;
+      hover:outline-primary-300
+      md:text-sm;
       &:nth-of-type(1), &:nth-of-type(2) {
         @apply border-b-[1px] border-grey-300;
       }

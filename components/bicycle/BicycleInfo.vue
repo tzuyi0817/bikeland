@@ -48,12 +48,12 @@ function formatStatus(info: BikeInfo) {
     >
       <div class="flex justify-between items-center mb-2 gap-5">
         <div class="flex-1 flex gap-2 items-center overflow-hidden">
-          <p class="text-primary-500 ellipsis font-bold">{{ info.StationName.Zh_tw }}</p>
-          <div :class="['bicycleInfo_status', statusColor(info)]">
+          <p class="text-primary-500 ellipsis font-bold md:text-xl">{{ info.StationName.Zh_tw }}</p>
+          <div :class="['bicycleInfo_status md:hidden', statusColor(info)]">
             {{ formatStatus(info) }}
           </div>
         </div>
-        <div class="text-grey-500 flex items-center gap-1">
+        <div class="text-grey-500 flex items-center gap-1 md:hidden">
           <map-marker class="text-grey-500" />
           <span class="text-xs whitespace-nowrap">{{ `距離${info.distance}公尺` }}</span>
         </div>
@@ -78,6 +78,15 @@ function formatStatus(info: BikeInfo) {
           <h5>{{ info.AvailableReturnBikes }}</h5>
         </div>
       </div>
+      <div class="hidden md:flex md:justify-between md:mt-3">
+        <div :class="['bicycleInfo_status', statusColor(info)]">
+          {{ formatStatus(info) }}
+        </div>
+        <div class="text-grey-500 flex items-center gap-1">
+          <map-marker class="text-grey-500" />
+          <span class="text-sm whitespace-nowrap">{{ `距離${info.distance}公尺` }}</span>
+        </div>
+      </div>
     </li>
     <bike-prompt v-if="!bikeInfo.length">很抱歉，查詢不到此站點</bike-prompt>
   </transition-group>
@@ -86,10 +95,20 @@ function formatStatus(info: BikeInfo) {
 <style lang="postcss" scoped>
 .bicycleInfo {
   &_status {
-    @apply rounded border-[1px] px-2 py-[2px] text-xs whitespace-nowrap;
+    @apply
+    rounded
+    border-[1px]
+    px-2
+    py-[2px]
+    text-xs
+    whitespace-nowrap
+    md:text-sm
+    md:rounded-md
+    md:px-3
+    md:py-1;
   }
   &_available {
-    @apply rounded-lg py-2 flex justify-center items-center gap-4;
+    @apply rounded-lg py-2 flex justify-center items-center gap-4 md:flex-col md:gap-1;
   }
 }
 </style>

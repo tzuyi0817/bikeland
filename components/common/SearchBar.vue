@@ -45,7 +45,8 @@ const changeSearch = debounce(() => emit('update:modelValue', search.value), 500
   text-xs
   tracking-wide
   focus:outline-1
-  focus:outline-primary-300;
+  focus:outline-primary-300
+  md:text-sm;
   &::placeholder {
     @apply text-grey-500;
   }
