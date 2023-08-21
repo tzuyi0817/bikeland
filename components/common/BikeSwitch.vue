@@ -64,7 +64,11 @@ async function toggleSwitch(type: Page) {
   py-1
   drop-shadow-md
   transition-transform
-  duration-300;
+  duration-300
+  md:left-[595px]
+  md:top-[106px]
+  md:px-3
+  md:py-2;
   &_button {
     @apply
     relative
@@ -76,7 +80,10 @@ async function toggleSwitch(type: Page) {
     flex
     items-center
     justify-center
-    disabled:text-primary-300;
+    disabled:text-primary-300
+    md:text-lg
+    md:px-4
+    md:py-2;
     &-active {
       @apply bg-primary-400 text-white;
     }

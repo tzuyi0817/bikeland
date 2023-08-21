@@ -41,7 +41,10 @@ const emit = defineEmits(['updateCurrentPosition']);
   disabled:bg-grey-300
   md:w-[60px]
   md:h-[60px]
-  md:top-0
+  md:top-[106px]
+  md:bottom-auto
+  md:left-[730px]
+  md:translate-y-0
   before:content-['']
   before:absolute
   before:top-0
