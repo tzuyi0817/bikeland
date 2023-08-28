@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+
 interface Props {
   isShowInfo: boolean;
   isUpdatingPosition: boolean;
@@ -6,11 +8,17 @@ interface Props {
 
 defineProps<Props>();
 const emit = defineEmits(['updateCurrentPosition']);
+const route = useRoute();
+const isRoutePage = computed(() => route.name === 'route');
 </script>
 
 <template>
   <button
-    :class="['positionButton', isShowInfo ? '-translate-y-3' : 'translate-y-[calc(50vh-202px)]']"
+    :class="[
+      'positionButton',
+      isShowInfo ? '-translate-y-3' : 'translate-y-[calc(50vh-202px)]',
+      isRoutePage ? 'md:-translate-x-64' : 'md:translate-x-0'
+    ]"
     data-after="點擊定位"
     :disabled="isUpdatingPosition"
     @click="emit('updateCurrentPosition')"
@@ -33,7 +41,7 @@ const emit = defineEmits(['updateCurrentPosition']);
   flex
   justify-center
   items-center
-  transition-[transform_colors]
+  transition-all
   duration-300
   hover:bg-primary-500
   hover:enabled:before:opacity-100

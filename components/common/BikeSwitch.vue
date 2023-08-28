@@ -21,12 +21,12 @@ async function toggleSwitch(type: Page) {
 </script>
 
 <template>
-  <div :class="['bikeSwitch', isShowMenu ? 'translate-y-24' : 'translate-y-0']">
+  <div :class="['bikeSwitch', isShowMenu ? 'translate-y-24 md:translate-y-0' : 'translate-y-0']">
     <div
       class="bikeSwitch_effect"
       :class="{
         'translate-x-0': currentSwitch === options[0].value,
-        'translate-x-[100px]': currentSwitch === options[1].value,
+        'translate-x-[100px] md:translate-x-28': currentSwitch === options[1].value,
       }"
     ></div>
     <button
@@ -83,13 +83,26 @@ async function toggleSwitch(type: Page) {
     disabled:text-primary-300
     md:text-lg
     md:px-4
-    md:py-2;
+    md:py-2
+    md:rounded-[40px];
     &-active {
       @apply bg-primary-400 text-white;
     }
   }
   &_effect {
-    @apply absolute w-24 h-8 bg-primary-400 rounded-2xl left-[6px] transition-transform duration-300;
+    @apply
+    absolute
+    w-24
+    h-8
+    bg-primary-400
+    rounded-2xl
+    left-[6px]
+    transition-transform
+    duration-300
+    md:left-3
+    md:w-28
+    md:h-11
+    md:rounded-[40px];
   }
 }
 </style>
